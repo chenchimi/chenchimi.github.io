@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Git 安装和配置 | Hexo ChenChimi</title><meta name="author" content="ChenChimi"><meta name="copyright" content="ChenChimi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="下载 Git 安装程序进入官方下载地址 Git - Install for Windows 点击下载（会自动下载最适合电脑的版本）  运行安装程序 更改安装目录  选择安装组件，一般来说默认即可，直接点击”Next”  选择next  配置 Git 环境选择默认的vim作为编辑命令  调整初始分支名称，建议选择 “Let Git decide”，然后直接点击 “Next”。  调整 PATH 环境">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 安装和配置">
+<meta property="og:url" content="https://chenchimi.github.io/2026/07/24/Git-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Hexo ChenChimi">
+<meta property="og:description" content="下载 Git 安装程序进入官方下载地址 Git - Install for Windows 点击下载（会自动下载最适合电脑的版本）  运行安装程序 更改安装目录  选择安装组件，一般来说默认即可，直接点击”Next”  选择next  配置 Git 环境选择默认的vim作为编辑命令  调整初始分支名称，建议选择 “Let Git decide”，然后直接点击 “Next”。  调整 PATH 环境">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenchimi.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-07-23T16:29:50.000Z">
+<meta property="article:modified_time" content="2026-07-23T16:46:39.316Z">
+<meta property="article:author" content="ChenChimi">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="安装和配置">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenchimi.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Git 安装和配置",
+  "url": "https://chenchimi.github.io/2026/07/24/Git-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/",
+  "image": "https://chenchimi.github.io/img/butterfly-icon.png",
+  "datePublished": "2026-07-23T16:29:50.000Z",
+  "dateModified": "2026-07-23T16:46:39.316Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ChenChimi",
+      "url": "https://chenchimi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://chenchimi.github.io/2026/07/24/Git-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git 安装和配置',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo ChenChimi</span></a><a class="nav-page-title" href="/"><span class="site-name">Git 安装和配置</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Git 安装和配置</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-23T16:29:50.000Z" title="发表于 2026-07-24 00:29:50">2026-07-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-23T16:46:39.316Z" title="更新于 2026-07-24 00:46:39">2026-07-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="下载-Git-安装程序"><a href="#下载-Git-安装程序" class="headerlink" title="下载 Git 安装程序"></a>下载 Git 安装程序</h2><p>进入官方下载地址</p>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/install/windows">Git - Install for Windows</a></p>
+<p>点击下载（会自动下载最适合电脑的版本）</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/Git_%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-1.png"></p>
+<h2 id="运行安装程序"><a href="#运行安装程序" class="headerlink" title="运行安装程序"></a>运行安装程序</h2><p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784822844774-8e88887f-7130-4eb1-b896-b133dce18c09.png" alt="image.png"></p>
+<p>更改安装目录</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/Git_%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-3.png"></p>
+<p>选择安装组件，一般来说默认即可，直接点击”Next”</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784822881326-c1783ba3-48f1-4055-9a26-23cf1ddf1d7a.png" alt="image.png"></p>
+<p>选择next</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784737313259-85f7340b-4f81-4238-9551-470d7f07eef8.png"></p>
+<h2 id="配置-Git-环境"><a href="#配置-Git-环境" class="headerlink" title="配置 Git 环境"></a>配置 Git 环境</h2><p>选择默认的vim作为编辑命令</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784822912340-06b1f332-16ac-42eb-861f-0fa238dac9d3.png" alt="image.png"></p>
+<p>调整初始分支名称，建议选择 “Let Git decide”，然后直接点击 “Next”。</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784822934091-dfa31520-984d-4d73-b547-85bce9f45c5c.png" alt="image.png"></p>
+<p>调整 PATH 环境，推荐选择第二项：”Git from the command line and also from 3rd-party software”，这样可以在 CMD 和 PowerShell 中直接使用 Git 命令，然后直接点击 “Next”。</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784822992999-3c16a950-be4f-4904-b5ef-9ee1db26abd3.png" alt="image.png"></p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784823020597-0f66d3b0-24ea-48d0-a68b-8bae747ad2a4.png" alt="image.png"></p>
+<p>选择 HTTPS 传输后端，使用默认选项，然后直接点击 “Next”。</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784823037139-fb351c6f-bdbc-4f8c-8fe6-e09c4c2370da.png" alt="image.png"></p>
+<p>配置行尾符号转换，选择 “Checkout Windows-style, commit Unix-style line endings”，然后直接点击 “Next”</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784823057062-fe2c6b35-2b22-4f9c-8a9c-13979c4c4489.png" alt="image.png"></p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784823070810-aad1ad6d-b223-4841-a793-18140baa0cb4.png" alt="image.png"></p>
+<p>新手一般选择“Rebase”</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784823086093-e0cc8151-eea6-42d3-b042-e1c79d6b0a87.png" alt="image.png"></p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784823099423-2b5c83e8-03af-473e-8919-a521085912fa.png" alt="image.png"></p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784823119318-c2d09481-b7f0-4b71-b168-635ab4b03f7e.png" alt="image.png"></p>
+<p>完成安装</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/Git_%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-16.png"></p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/Git_%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-17.png"></p>
+<h2 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h2><p>“ 打开命令提示符，输入命令检查版本：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="literal">--version</span></span><br></pre></td></tr></table></figure>
+
+<p>如果显示版本号，说明安装成功。</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/Git_%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-18.png" alt="image.png"></p>
+<h2 id="设置全局用户名和邮箱"><a href="#设置全局用户名和邮箱" class="headerlink" title="设置全局用户名和邮箱"></a>设置全局用户名和邮箱</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config <span class="literal">--global</span> user.name <span class="string">&quot;你的用户名&quot;</span></span><br><span class="line"></span><br><span class="line">git config <span class="literal">--global</span> user.email <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config <span class="literal">--global</span> <span class="literal">--list</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/Git_%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-19.png" alt="image.png"></p>
+<h2 id="配置-SSH-密钥-用于上传代码到gitee或者git）"><a href="#配置-SSH-密钥-用于上传代码到gitee或者git）" class="headerlink" title="配置 SSH 密钥(用于上传代码到gitee或者git）"></a>配置 SSH 密钥(用于上传代码到gitee或者git）</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa <span class="literal">-C</span> <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>一直按回车就可以</p>
+<p>密钥默认生成在：C:\Users\你的用户名\.ssh\</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/Git_%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-20.png"></p>
+<p>打开公钥文件，全部复制</p>
+<p>复制好的公钥粘贴进来</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/Git_%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-21.png" alt="image.png"></p>
+<p>验证成功：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh <span class="literal">-T</span> git@github.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1784822535840-0a82e8dc-8802-408d-be5d-f0f1cdd590c9.png" alt="image.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://chenchimi.github.io">ChenChimi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://chenchimi.github.io/2026/07/24/Git-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">https://chenchimi.github.io/2026/07/24/Git-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://chenchimi.github.io" target="_blank">Hexo ChenChimi</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a><a class="post-meta__tags" href="/tags/%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">安装和配置</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/07/23/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/" title="第一篇测试博客"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">第一篇测试博客</div></div><div class="info-2"><div class="info-item-1">这是一篇测试博客，用于测试 Hexo 是否正常运行。  </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ChenChimi</div><div class="author-info-description">ChenChimi's Blog , share my knowledge and experience.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-Git-%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">下载 Git 安装程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">运行安装程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Git-%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">配置 Git 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">验证安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E9%82%AE%E7%AE%B1"><span class="toc-number">5.</span> <span class="toc-text">设置全局用户名和邮箱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-SSH-%E5%AF%86%E9%92%A5-%E7%94%A8%E4%BA%8E%E4%B8%8A%E4%BC%A0%E4%BB%A3%E7%A0%81%E5%88%B0gitee%E6%88%96%E8%80%85git%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">配置 SSH 密钥(用于上传代码到gitee或者git）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/24/Git-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" title="Git 安装和配置">Git 安装和配置</a><time datetime="2026-07-23T16:29:50.000Z" title="发表于 2026-07-24 00:29:50">2026-07-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/23/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/" title="第一篇测试博客">第一篇测试博客</a><time datetime="2026-07-23T03:55:37.000Z" title="发表于 2026-07-23 11:55:37">2026-07-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/23/hello-world/" title="Hello World">Hello World</a><time datetime="2026-07-23T03:33:21.425Z" title="发表于 2026-07-23 11:33:21">2026-07-23</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By ChenChimi</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.6.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.6.1"></script><script src="/js/main.js?v=5.6.1"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
