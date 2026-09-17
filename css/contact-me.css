@@ -1,0 +1,105 @@
+/* ==========================================================================
+   联系我 / Contact Me —— 邮箱展示样式
+   与 Butterfly 主题风格保持一致，自动适配浅色 / 深色模式与移动端
+   ========================================================================== */
+
+/* ----------------------------- 侧边栏「联系我」卡片 ----------------------------- */
+#card-contact-me .contact-me-box {
+  text-align: center;
+}
+
+#card-contact-me .contact-me-desc {
+  margin: 0 0 12px;
+  color: var(--card-meta);
+  font-size: 0.9em;
+  line-height: 1.6;
+  text-align: left;
+}
+
+#card-contact-me .contact-me-mail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background-color: var(--btn-bg);
+  color: var(--btn-color);
+  font-size: 0.95em;
+  line-height: 2.2;
+  text-align: center;
+  word-break: break-all;
+  /* 与主题 rounded_corners_ui: true 保持一致 */
+  border-radius: 8px;
+}
+
+#card-contact-me .contact-me-mail i {
+  flex-shrink: 0;
+}
+
+#card-contact-me .contact-me-mail span {
+  min-width: 0;
+}
+
+#card-contact-me .contact-me-mail:hover {
+  background-color: var(--btn-hover-color);
+  color: var(--btn-color);
+}
+
+/* 深色模式下的轻微边框，避免按钮与卡片背景融为一体 */
+[data-theme='dark'] #card-contact-me .contact-me-mail {
+  border: 1px solid var(--dark-grey);
+}
+
+/* ------------------------------ 页脚联系邮箱 ------------------------------ */
+#footer .footer_custom_text {
+  line-height: 2;
+}
+
+#footer .footer-contact-mail {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 3px 14px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 0.95em;
+  letter-spacing: 0.2px;
+  transition: all 0.3s ease-in-out;
+  word-break: break-all;
+}
+
+#footer .footer-contact-mail i {
+  flex-shrink: 0;
+}
+
+#footer .footer-contact-mail:hover {
+  background-color: rgba(255, 255, 255, 0.32);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* -------------------------------- 移动端适配 -------------------------------- */
+@media screen and (max-width: 768px) {
+  #card-contact-me .contact-me-mail {
+    font-size: 0.9em;
+    padding: 4px 8px;
+    gap: 6px;
+    line-height: 2;
+  }
+
+  #footer .footer-contact-mail {
+    padding: 3px 12px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #card-contact-me .contact-me-mail {
+    /* 极窄屏幕下允许邮箱地址换行，避免撑出横向滚动条 */
+    word-break: break-all;
+    line-height: 1.5;
+    padding: 8px 10px;
+  }
+}
