@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>skill推荐：Archify-图表生成 | Hexo ChenChimi</title><meta name="author" content="ChenChimi"><meta name="copyright" content="ChenChimi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Archify 是一个专为 AI 编程助手设计的开源 Agent Skill，旨在将代码仓库或系统描述，通过自然语言直接转化为美观、可靠且可交互的 HTML 架构图。它并非传统的在线画板，而是将绘图能力深度嵌入到 Cursor、Claude Code 等 AI 智能体的工作流中。 核心特性Archify 试图解决传统绘图工具（如 draw.io 手动拖拽繁琐、Mermaid 复杂图表易混乱）的痛点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="skill推荐：Archify-图表生成">
+<meta property="og:url" content="https://chenchimi.github.io/post/c8f21845.html">
+<meta property="og:site_name" content="Hexo ChenChimi">
+<meta property="og:description" content="Archify 是一个专为 AI 编程助手设计的开源 Agent Skill，旨在将代码仓库或系统描述，通过自然语言直接转化为美观、可靠且可交互的 HTML 架构图。它并非传统的在线画板，而是将绘图能力深度嵌入到 Cursor、Claude Code 等 AI 智能体的工作流中。 核心特性Archify 试图解决传统绘图工具（如 draw.io 手动拖拽繁琐、Mermaid 复杂图表易混乱）的痛点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenchimi.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-09-17T08:48:10.000Z">
+<meta property="article:modified_time" content="2026-09-17T08:50:06.809Z">
+<meta property="article:author" content="ChenChimi">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="skill">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenchimi.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "skill推荐：Archify-图表生成",
+  "url": "https://chenchimi.github.io/post/c8f21845.html",
+  "image": "https://chenchimi.github.io/img/butterfly-icon.png",
+  "datePublished": "2026-09-17T08:48:10.000Z",
+  "dateModified": "2026-09-17T08:50:06.809Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ChenChimi",
+      "url": "https://chenchimi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://chenchimi.github.io/post/c8f21845.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'skill推荐：Archify-图表生成',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo ChenChimi</span></a><a class="nav-page-title" href="/"><span class="site-name">skill推荐：Archify-图表生成</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">skill推荐：Archify-图表生成</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-17T08:48:10.000Z" title="发表于 2026-09-17 16:48:10">2026-09-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-17T08:50:06.809Z" title="更新于 2026-09-17 16:50:06">2026-09-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>Archify 是一个专为 AI 编程助手设计的开源 <strong>Agent Skill</strong>，旨在将代码仓库或系统描述，通过自然语言直接转化为<strong>美观、可靠且可交互的 HTML 架构图</strong>。它并非传统的在线画板，而是将绘图能力深度嵌入到 Cursor、Claude Code 等 AI 智能体的工作流中。</p>
+<h2 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h2><p>Archify 试图解决传统绘图工具（如 draw.io 手动拖拽繁琐、Mermaid 复杂图表易混乱）的痛点。其核心优势在于：</p>
+<ul>
+<li><strong>自然语言驱动</strong>：无需学习绘图语法，只需向 AI 描述你的系统架构或技术意图，即可生成图表。</li>
+<li><strong>可验证的可靠性</strong>：工作流程为“生成 JSON IR → 规则验证 → 渲染”，确保生成的图表在逻辑和结构上是准确的，避免“看起来漂亮但实际有误”的情况。</li>
+<li><strong>交互式成品</strong>：生成的 HTML 文件是独立的，支持<strong>搜索节点、追踪调用路径、切换深浅主题</strong>等交互操作，便于演示和沟通。</li>
+<li><strong>对话式迭代</strong>：如果对图表不满意，可以直接用自然语言指令让 AI 修改，例如“加入 Redis”或“突出缓存失效后的回退路径”，无需从头重画。</li>
+<li><strong>多格式导出</strong>：支持导出为 <strong>PNG、SVG、WebM</strong> 等格式，方便嵌入文档或分享。</li>
+</ul>
+<h2 id="支持的图表类型"><a href="#支持的图表类型" class="headerlink" title="支持的图表类型"></a>支持的图表类型</h2><p>Archify 目前支持五种技术图表，覆盖了大部分开发场景：</p>
+<table>
+<thead>
+<tr>
+<th align="left">图表类型</th>
+<th align="left">适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Architecture</strong> (架构图)</td>
+<td align="left">展示组件、服务、存储和系统边界，如微服务架构、云架构。</td>
+</tr>
+<tr>
+<td align="left"><strong>Workflow</strong> (工作流图)</td>
+<td align="left">描述有序的工作流程，如 CI&#x2F;CD 流水线、审批流程。</td>
+</tr>
+<tr>
+<td align="left"><strong>Sequence</strong> (时序图)</td>
+<td align="left">展示调用、返回、缓存未命中等时序交互，如 API 调用链。</td>
+</tr>
+<tr>
+<td align="left"><strong>Data Flow</strong> (数据流图)</td>
+<td align="left">描绘数据的移动、转换和消费，如 ETL 管道、数据血缘。</td>
+</tr>
+<tr>
+<td align="left"><strong>Lifecycle</strong> (生命周期图)</td>
+<td align="left">表示状态、重试、等待和最终结果，如订单状态流转。</td>
+</tr>
+</tbody></table>
+<h2 id="国内使用"><a href="#国内使用" class="headerlink" title="国内使用"></a>国内使用</h2><h3 id="Archify-在-Trae-与-Trae-CN-中的支持情况"><a href="#Archify-在-Trae-与-Trae-CN-中的支持情况" class="headerlink" title="Archify 在 Trae 与 Trae CN 中的支持情况"></a>Archify 在 Trae 与 Trae CN 中的支持情况</h3><p><strong>Trae CN 的 Skill 安装方式</strong>：</p>
+<ul>
+<li><strong>项目级</strong>：将 Skill 放在项目目录下的 <code>.trae/skills/</code> 中。</li>
+<li><strong>全局级</strong>：放在 <code>C:\Users\你的用户名\.trae-cn\skills</code> 目录下，Trae CN 会自动解析。</li>
+<li><strong>命令行安装</strong>：需在指令后加上 <code>--agent trae-cn</code> 后缀绑定，否则无法通过可视化界面管理。</li>
+</ul>
+<hr>
+<p><strong>实际差异</strong>：由于 Trae CN 使用国产模型（如 DeepSeek、豆包等），而 Archify Skill 本身只是一个结构化使用说明书（SKILL.md），<strong>Skill 机制本身不依赖特定模型</strong>，因此 Archify 在 Trae CN 中可以正常安装和调用。但模型能力的差异可能影响 AI 对架构描述的<strong>理解和生成质量</strong>，复杂场景下国际版模型（如 Claude、GPT）通常表现更优。</p>
+<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h3><ul>
+<li><strong>日常开发、预算敏感、网络环境受限</strong> → 优先选 <strong>Trae CN</strong>，免费使用国产模型，国内直连，Archify Skill 可正常集成。</li>
+<li><strong>需要 Claude&#x2F;GPT 级别模型能力、复杂架构生成场景</strong> → 考虑 <strong>Trae 国际版</strong>，但需准备国际网络环境和付费预算。</li>
+<li><strong>Archify 本身</strong>在两个版本中都能用，关键差异在于<strong>底层模型的架构理解能力</strong>，而非 Skill 机制的支持与否。</li>
+</ul>
+<h2 id="在-Trae-CN-中使用-Archify"><a href="#在-Trae-CN-中使用-Archify" class="headerlink" title="在 Trae CN 中使用 Archify"></a>在 Trae CN 中使用 Archify</h2><p>在 Trae CN 中使用 Archify，核心是通过 <code>npx skills</code> 命令将它安装为一个 <strong>Skill</strong>，之后就能在 AI 对话中直接调用了。</p>
+<p>请确保环境满足以下条件：</p>
+<ul>
+<li><strong>Trae CN 版本</strong>：确认版本号 <strong>≥ 3.3.21</strong>，低版本不支持 Skill 功能。</li>
+<li><strong>运行环境</strong>：Archify Skill 依赖 Node.js，请确保已安装 <strong>Node.js ≥ 16.0</strong>，同时 <code>npx</code> 也会随之自动安装。</li>
+</ul>
+<p>安装 Archify Skill</p>
+<p>Archify 的安装主要通过 <code>npx</code> 命令完成，针对 Trae CN 需要指定 <code>--agent trae-cn</code> 参数。</p>
+<h3 id="方式一：全局安装（推荐）"><a href="#方式一：全局安装（推荐）" class="headerlink" title="方式一：全局安装（推荐）"></a>方式一：全局安装（推荐）</h3><p>在终端中执行以下命令，将 Archify 安装为全局 Skill，在所有项目中都可使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx skills add tt-a1i/archify --agent trae-cn --global</span><br></pre></td></tr></table></figure>
+
+<h3 id="方式二：项目级安装"><a href="#方式二：项目级安装" class="headerlink" title="方式二：项目级安装"></a>方式二：项目级安装</h3><p>如果希望只在特定项目中使用，可以去掉 <code>--global</code> 参数，在项目根目录下执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx skills add tt-a1i/archify --agent trae-cn</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：命令中的 <code>--agent trae-cn</code> 是<strong>必须的</strong>，用于告知安装工具目标环境是 Trae 国内版。如果误用为国际版参数 <code>trae</code>，Skill 将无法在 Trae CN 中正常加载。</p>
+</blockquote>
+<h3 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h3><p>安装完成后，可以通过以下方式确认 Skill 是否就绪：</p>
+<ul>
+<li><strong>检查目录</strong>：全局安装的 Skill 通常存放在 <code>C:\Users\你的用户名\.trae-cn\skills</code> 目录下。</li>
+<li><strong>对话验证</strong>：在 Trae CN 的 AI 对话框中直接输入测试指令，例如：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Use archify to draw: Browser -&gt; API Gateway -&gt; Auth Service -&gt; Redis -&gt; PostgreSQL</span><br></pre></td></tr></table></figure>
+
+<p>如果 Archify 正常工作，它会开始处理并生成图表。</p>
+<h2 id="如何使用-Archify"><a href="#如何使用-Archify" class="headerlink" title="如何使用 Archify"></a>如何使用 Archify</h2><p>Archify 的设计理念是“在对话中生成图表”，因此其使用方式主要围绕 AI 编程助手展开。同时，它也提供了命令行工具供高级用户或集成场景使用。</p>
+<h3 id="环境准备与安装"><a href="#环境准备与安装" class="headerlink" title="环境准备与安装"></a>环境准备与安装</h3><p>Archify 基于 Node.js，需要 <strong>Node.js 18 或更高版本</strong>。</p>
+<p>最便捷的安装方式是通过 <code>skills</code> 命令行工具进行全局安装：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx skills add tt<span class="literal">-a1i</span>/archify <span class="literal">-g</span></span><br></pre></td></tr></table></figure>
+
+<p>安装后，你可以运行诊断命令 <code>node bin/archify.mjs doctor</code> 来验证环境是否就绪。</p>
+<h3 id="基本用法（推荐）"><a href="#基本用法（推荐）" class="headerlink" title="基本用法（推荐）"></a>基本用法（推荐）</h3><p>安装完成后，你无需手动操作命令行。直接在支持 Skill 的 AI 编程助手（如 <strong>Cursor、Claude Code、Codex CLI、OpenCode、Raven</strong>）的对话中，用自然语言提出你的需求即可。</p>
+<p><strong>示例指令</strong>：</p>
+<ul>
+<li>“分析这个代码仓库，并生成一张高层运行时架构图。”</li>
+<li>“使用 archify 为这个仓库的运行时架构生成图表。”</li>
+<li>“展示一个带有 JWT 认证、Redis 缓存未命中和数据库回退的 API 请求时序图。”</li>
+</ul>
+<p>AI Agent 会理解你的意图，生成结构化的 JSON 数据，然后由 Archify 负责验证和渲染，最终输出一个可交互的 HTML 文件。</p>
+<h3 id="命令行用法（高级-集成）"><a href="#命令行用法（高级-集成）" class="headerlink" title="命令行用法（高级&#x2F;集成）"></a>命令行用法（高级&#x2F;集成）</h3><p>对于需要将 Archify 集成到 CI&#x2F;CD 管道或进行精确控制的用户，可以使用其 CLI 工具 <code>archify/bin/archify.mjs</code>。完整的命令包括 <code>validate</code> (验证)、<code>render</code> (渲染)、<code>deliver</code> (交付)、<code>compare</code> (对比) 等。</p>
+<p>一个典型的手动工作流如下：</p>
+<ol>
+<li><strong>选择图表类型</strong>：根据你要回答的问题，选择对应的图表类型（如 <code>architecture</code>）。</li>
+<li><strong>编写源文件</strong>：创建一个符合 Schema 的 JSON 源文件，建议从官方示例（如 <code>examples/web-app.architecture.json</code>）开始修改。</li>
+<li><strong>验证</strong>：使用 <code>validate</code> 命令在渲染前检查 JSON 文件的正确性。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node bin/archify.mjs validate architecture path/to/diagram.json <span class="literal">--quality</span> showcase <span class="literal">--json</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>交付</strong>：使用 <code>deliver</code> 命令生成最终的 HTML 成品，该命令会冻结版本并生成可信任的交付物。</li>
+</ol>
+<p>Archify 将架构图的创建从一项繁琐的“画图”任务，转变为一次自然的“对话”和“验证”过程，尤其适合需要频繁更新架构文档的开发团队。</p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><ul>
+<li><strong>Archify 国内主要用途</strong>：作为 AI 编程工具（Trae、Cursor 等）的 Skill，生成架构图；生成的图表也可嵌入飞书、钉钉文档。</li>
+<li><strong>Trae vs Trae CN</strong>：国际版与国内版，账号数据独立，模型和网络访问不同；Archify 在两个版本中均可通过 Skill 机制集成，但底层模型能力会影响生成质量。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://chenchimi.github.io">ChenChimi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://chenchimi.github.io/post/c8f21845.html">https://chenchimi.github.io/post/c8f21845.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://chenchimi.github.io" target="_blank">Hexo ChenChimi</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/skill/">skill</a><a class="post-meta__tags" href="/tags/AI/">AI</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/post/4eeb1eb0.html" title="Obsidian笔记插件-yuque-style"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Obsidian笔记插件-yuque-style</div></div><div class="info-2"><div class="info-item-1">yuque-style —— 在 Obsidian 里过上语雀的日子插件需要使用语雀的Token 它做两件事： 一、把语雀的体验搬进 Obsidian 语雀式排版  居中栏宽 1.75 行高与段间距 图片圆角、居中、限高 宽表格横向滚动   悬浮格式工具栏  选中文字即现 表格里会自动切换成表格工具条   块插入菜单  输入 / 唤起 10 种 Callout 卡片 折叠块 目录块 两栏对比 13 种语言代码块   标题层级自动编号  文档头显示  字数 语雀真实的创建 &#x2F; 更新时间    二、把语雀的内容搬到本地 增量同步：按 updated_at 同步 目录还原：还原知识库目录树，并生成索引页 图片本地化：图片自动下载到本地，避免外链失效 双链转换：文档间引用转成 [[双链]]，跨知识库也认 中文属性：每篇文档写入标题 &#x2F; 来源 &#x2F; 语雀 ID &#x2F; 语雀创建时间 &#x2F; 语雀更新时间  </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ChenChimi</div><div class="author-info-description">ChenChimi's Blog , share my knowledge and experience.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">核心特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%BE%E8%A1%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">支持的图表类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BD%E5%86%85%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">国内使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Archify-%E5%9C%A8-Trae-%E4%B8%8E-Trae-CN-%E4%B8%AD%E7%9A%84%E6%94%AF%E6%8C%81%E6%83%85%E5%86%B5"><span class="toc-number">3.1.</span> <span class="toc-text">Archify 在 Trae 与 Trae CN 中的支持情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="toc-number">3.2.</span> <span class="toc-text">选择建议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-Trae-CN-%E4%B8%AD%E4%BD%BF%E7%94%A8-Archify"><span class="toc-number">4.</span> <span class="toc-text">在 Trae CN 中使用 Archify</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-number">4.1.</span> <span class="toc-text">方式一：全局安装（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E9%A1%B9%E7%9B%AE%E7%BA%A7%E5%AE%89%E8%A3%85"><span class="toc-number">4.2.</span> <span class="toc-text">方式二：项目级安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">4.3.</span> <span class="toc-text">验证安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-Archify"><span class="toc-number">5.</span> <span class="toc-text">如何使用 Archify</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-number">5.1.</span> <span class="toc-text">环境准备与安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">基本用法（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%94%A8%E6%B3%95%EF%BC%88%E9%AB%98%E7%BA%A7-%E9%9B%86%E6%88%90%EF%BC%89"><span class="toc-number">5.3.</span> <span class="toc-text">命令行用法（高级&#x2F;集成）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">5. 总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/c8f21845.html" title="skill推荐：Archify-图表生成">skill推荐：Archify-图表生成</a><time datetime="2026-09-17T08:48:10.000Z" title="发表于 2026-09-17 16:48:10">2026-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/4eeb1eb0.html" title="Obsidian笔记插件-yuque-style">Obsidian笔记插件-yuque-style</a><time datetime="2026-09-17T07:16:21.000Z" title="发表于 2026-09-17 15:16:21">2026-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/2356df63.html" title="二、VLAN端口-Access Trunk Hybrid">二、VLAN端口-Access Trunk Hybrid</a><time datetime="2026-09-04T03:48:55.000Z" title="发表于 2026-09-04 11:48:55">2026-09-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/fc7028a0.html" title="VLAN 基础知识">VLAN 基础知识</a><time datetime="2026-09-04T02:35:18.000Z" title="发表于 2026-09-04 10:35:18">2026-09-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/b0761523.html" title="Git 安装和配置">Git 安装和配置</a><time datetime="2026-07-23T16:29:50.000Z" title="发表于 2026-07-24 00:29:50">2026-07-24</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By ChenChimi</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.6.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.6.1"></script><script src="/js/main.js?v=5.6.1"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
