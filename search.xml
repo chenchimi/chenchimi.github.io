@@ -62,6 +62,62 @@
       </tags>
   </entry>
   <entry>
+    <title>Obsidian笔记插件-yuque-style</title>
+    <url>/post/4eeb1eb0.html</url>
+    <content><![CDATA[<h1 id="yuque-style-——-在-Obsidian-里过上语雀的日子"><a href="#yuque-style-——-在-Obsidian-里过上语雀的日子" class="headerlink" title="yuque-style —— 在 Obsidian 里过上语雀的日子"></a>yuque-style —— 在 Obsidian 里过上语雀的日子</h1><p>注意：</p>
+<ol>
+<li>插件需要使用语雀的Token</li>
+<li>插件地址：<a href="https://github.com/chenchimi/yuque-style">https://github.com/chenchimi/yuque-style</a></li>
+</ol>
+<p>它做两件事：</p>
+<h2 id="一、把语雀的体验搬进-Obsidian"><a href="#一、把语雀的体验搬进-Obsidian" class="headerlink" title="一、把语雀的体验搬进 Obsidian"></a>一、把语雀的体验搬进 Obsidian</h2><ul>
+<li><p><strong>语雀式排版</strong></p>
+<ul>
+<li>居中栏宽</li>
+<li>1.75 行高与段间距</li>
+<li>图片圆角、居中、限高</li>
+<li>宽表格横向滚动</li>
+</ul>
+</li>
+<li><p><strong>悬浮格式工具栏</strong></p>
+<ul>
+<li>选中文字即现</li>
+<li>表格里会自动切换成表格工具条</li>
+</ul>
+</li>
+<li><p><strong>块插入菜单</strong></p>
+<ul>
+<li>输入 <code>/</code> 唤起</li>
+<li>10 种 Callout 卡片</li>
+<li>折叠块</li>
+<li>目录块</li>
+<li>两栏对比</li>
+<li>13 种语言代码块</li>
+</ul>
+</li>
+<li><p><strong>标题层级自动编号</strong></p>
+</li>
+<li><p><strong>文档头显示</strong></p>
+<ul>
+<li>字数</li>
+<li>语雀真实的创建 &#x2F; 更新时间</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、把语雀的内容搬到本地"><a href="#二、把语雀的内容搬到本地" class="headerlink" title="二、把语雀的内容搬到本地"></a>二、把语雀的内容搬到本地</h2><ul>
+<li><strong>增量同步</strong>：按 <code>updated_at</code> 同步</li>
+<li><strong>目录还原</strong>：还原知识库目录树，并生成索引页</li>
+<li><strong>图片本地化</strong>：图片自动下载到本地，避免外链失效</li>
+<li><strong>双链转换</strong>：文档间引用转成 <code>[[双链]]</code>，跨知识库也认</li>
+<li><strong>中文属性</strong>：每篇文档写入标题 &#x2F; 来源 &#x2F; 语雀 ID &#x2F; 语雀创建时间 &#x2F; 语雀更新时间</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Obsidian</tag>
+        <tag>语雀</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三、VLANIF</title>
     <url>/post/0.html</url>
     <content><![CDATA[<h3 id="一、-VLANIF-是什么？"><a href="#一、-VLANIF-是什么？" class="headerlink" title="一、 VLANIF 是什么？"></a>一、 VLANIF 是什么？</h3><p>VLANIF 接口是一种<strong>三层的逻辑接口</strong>（在思科等设备中常被称为 SVI 接口）。<strong><font style="color:#DF2A3F;">物理上它并不存在</font></strong>，而是通过软件基于 VLAN 创建的。</p>
@@ -100,30 +156,6 @@
 <p>此外，VLANIF 接口也常用于部署 DHCP 服务器（基于接口分配地址）或配置 DHCP 中继（<code>ip helper-address</code>），以实现跨网段的 IP 地址分配。</p>
 <hr>
 <p><strong>排查小贴士</strong>：如果配置后发现不同 VLAN 无法 ping 通，请按顺序检查：1. PC 的默认网关是否指向了正确的 VLANIF 地址；2. 对应的 VLANIF 接口状态是否为 UP（可通过 <code>display ip interface brief</code> 查看）；3. 物理接口是否正确划入了相应的 VLAN。</p>
-<table>
-<thead>
-<tr>
-<th>列 A</th>
-<th>列 B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>内容</td>
-<td>内容</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>列 A</th>
-<th>列 B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>内容</td>
-<td>内容</td>
-</tr>
-</tbody></table>
 ]]></content>
       <tags>
         <tag>VLAN</tag>
@@ -593,62 +625,6 @@
 ]]></content>
       <tags>
         <tag>测试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Obsidian笔记插件-yuque-style</title>
-    <url>/post/4eeb1eb0.html</url>
-    <content><![CDATA[<h1 id="yuque-style-——-在-Obsidian-里过上语雀的日子"><a href="#yuque-style-——-在-Obsidian-里过上语雀的日子" class="headerlink" title="yuque-style —— 在 Obsidian 里过上语雀的日子"></a>yuque-style —— 在 Obsidian 里过上语雀的日子</h1><p>注意：</p>
-<ol>
-<li>插件需要使用语雀的Token</li>
-<li>插件地址：<a href="https://github.com/chenchimi/yuque-style">https://github.com/chenchimi/yuque-style</a></li>
-</ol>
-<p>它做两件事：</p>
-<h2 id="一、把语雀的体验搬进-Obsidian"><a href="#一、把语雀的体验搬进-Obsidian" class="headerlink" title="一、把语雀的体验搬进 Obsidian"></a>一、把语雀的体验搬进 Obsidian</h2><ul>
-<li><p><strong>语雀式排版</strong></p>
-<ul>
-<li>居中栏宽</li>
-<li>1.75 行高与段间距</li>
-<li>图片圆角、居中、限高</li>
-<li>宽表格横向滚动</li>
-</ul>
-</li>
-<li><p><strong>悬浮格式工具栏</strong></p>
-<ul>
-<li>选中文字即现</li>
-<li>表格里会自动切换成表格工具条</li>
-</ul>
-</li>
-<li><p><strong>块插入菜单</strong></p>
-<ul>
-<li>输入 <code>/</code> 唤起</li>
-<li>10 种 Callout 卡片</li>
-<li>折叠块</li>
-<li>目录块</li>
-<li>两栏对比</li>
-<li>13 种语言代码块</li>
-</ul>
-</li>
-<li><p><strong>标题层级自动编号</strong></p>
-</li>
-<li><p><strong>文档头显示</strong></p>
-<ul>
-<li>字数</li>
-<li>语雀真实的创建 &#x2F; 更新时间</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、把语雀的内容搬到本地"><a href="#二、把语雀的内容搬到本地" class="headerlink" title="二、把语雀的内容搬到本地"></a>二、把语雀的内容搬到本地</h2><ul>
-<li><strong>增量同步</strong>：按 <code>updated_at</code> 同步</li>
-<li><strong>目录还原</strong>：还原知识库目录树，并生成索引页</li>
-<li><strong>图片本地化</strong>：图片自动下载到本地，避免外链失效</li>
-<li><strong>双链转换</strong>：文档间引用转成 <code>[[双链]]</code>，跨知识库也认</li>
-<li><strong>中文属性</strong>：每篇文档写入标题 &#x2F; 来源 &#x2F; 语雀 ID &#x2F; 语雀创建时间 &#x2F; 语雀更新时间</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Obsidian</tag>
-        <tag>语雀</tag>
       </tags>
   </entry>
   <entry>
