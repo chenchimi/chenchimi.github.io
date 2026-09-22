@@ -46,6 +46,14 @@ main#content-inner.layout {
   max-width: 1120px;
 }
 
+/* 首页索引区单独放宽：1200–1600px 下原列宽恒为 395px，两侧留白较多。
+   用 :has() 精确限定「含首页索引」的页面，文章页与独立页仍保持 1120px，
+   避免正文行宽被一起拉宽（那会让中文行宽从约 46 字涨到约 58 字）。
+   不支持 :has() 的浏览器自动回退到上面的 1120px。 */
+#body-wrap.page:has(#recent-posts) main#content-inner.layout {
+  max-width: 1260px;
+}
+
 /* --------------------------------------------------------------------------
    3. 正文排版细节：减少竖向仪式感，保持层级清晰
    -------------------------------------------------------------------------- */
@@ -114,7 +122,20 @@ main#content-inner.layout {
    宽屏下每屏仅容一篇，属于需要重设计的重复高卡片。
    宽屏改为两列网格、封面统一置顶；中型屏保留交替但高度自适应。
    -------------------------------------------------------------------------- */
-@media (min-width: 1200px) {
+
+/* 摘要同样锁定 2 行。
+   标题对齐后仍有 172px / 200px 两种卡片高度，差 28px 恰为一行：
+   摘要文案短的卡片只渲染 1 行，比邻卡矮一行。两个源头都锁住才能彻底对齐。 */
+#recent-posts .recent-post-item .content {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.6;
+  min-height: 3.2em;
+}
+
+@media (min-width: 1100px) {
   #recent-posts .recent-post-items {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -145,14 +166,23 @@ main#content-inner.layout {
     padding: 14px 18px 16px;
   }
 
+  /* 等高关键：Grid 会把同行卡片拉伸对齐，但整行高度取决于最高的那张。
+     标题折成 2 行就会把整行撑高，令邻卡底部空出一块（实测差 35px）。
+     这里把标题区锁死在 2 行高度：1 行标题也占满 2 行，长标题最多 2 行。
+     min-height 的 em 基于元素自身 font-size，1.5 行高 × 2 行 = 3em。 */
   #recent-posts .recent-post-item .article-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3em;
     font-size: 1.08rem;
     line-height: 1.5;
   }
 }
 
-/* 中型屏：保留左右交替，去掉固定高度 */
-@media (min-width: 769px) and (max-width: 1199px) {
+/* 中型屏：单列，保留左右交替，去掉固定高度 */
+@media (min-width: 769px) and (max-width: 1099px) {
   #recent-posts .recent-post-item {
     height: auto;
     min-height: 12em;
@@ -165,6 +195,16 @@ main#content-inner.layout {
   #recent-posts .recent-post-item .recent-post-info {
     width: 64%;
     padding: 0 26px;
+  }
+
+  /* 单列下也锁 2 行，避免卡片高度随标题长度跳动 */
+  #recent-posts .recent-post-item .article-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3em;
+    line-height: 1.5;
   }
 }
 
@@ -189,6 +229,55 @@ main#content-inner.layout {
 #aside-content .card-recent-post .item-title {
   word-break: normal;
   overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   5c. 首页标签 chip
+   七张卡片原本只有「标题 + 日期 + 摘要」，结构雷同、难以判断内容归属。
+   把首个标签渲染成 chip 作为归属线索。
+   只保留第一个标签：多标签会占满多行，反过来破坏刚建立起来的等高网格。
+   -------------------------------------------------------------------------- */
+#recent-posts .article-meta-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px 8px;
+}
+
+#recent-posts .article-meta-wrap .article-meta.tags {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 分隔符、连接点与标签图标在 chip 语境下是噪音，改用 flex gap 控制间距 */
+#recent-posts .article-meta-wrap .article-meta-separator,
+#recent-posts .article-meta-wrap .article-meta-link,
+#recent-posts .article-meta-wrap .article-meta.tags > i {
+  display: none;
+}
+
+/* 仅保留首个标签 */
+#recent-posts .article-meta-wrap .article-meta__tags ~ .article-meta__tags {
+  display: none;
+}
+
+#recent-posts .article-meta-wrap .article-meta__tags {
+  padding: 0 7px;
+  border: 1px solid var(--bs-accent-soft);
+  /* 支持 color-mix 时用强调色派生边框，更贴合明暗两套主题 */
+  border-color: color-mix(in srgb, var(--bs-accent) 38%, transparent);
+  border-radius: 999px;
+  background: var(--bs-accent-soft);
+  color: var(--bs-accent);
+  font-size: 0.86em;
+  line-height: 1.7;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#recent-posts .article-meta-wrap .article-meta__tags:hover {
+  border-color: var(--bs-accent);
+  background: color-mix(in srgb, var(--bs-accent) 20%, transparent);
 }
 
 /* --------------------------------------------------------------------------
