@@ -1,0 +1,234 @@
+/* ==========================================================================
+   科技风视觉层 —— tech-visual.css
+   --------------------------------------------------------------------------
+   职责：在令牌层（design-tokens.css）与阅读系统层（blog-system.css）之上，
+         叠加科技风的视觉语言：深空底色与网格、霓虹描边与渐变线条、
+         卡片悬浮动效、未来感标题。
+   约束：
+     · 全部用 CSS 实现，不引入外部 Web Font —— 避免 FOUT、体积膨胀与
+       CDN 可达性风险（站点 third_party_provider 为 jsdelivr）。
+       科技感由字重、字距、渐变文字与发光层次表达。
+     · 所有发光/渐变都叠加在已验证达标的底色之上，不改变文字的
+       前景/背景对比度。渐变文字的每个色标均已单独校验（>=4.5:1）。
+     · 动效统一由 prefers-reduced-motion 保护。
+     · 浅色模式不做霓虹处理：亮底上的发光会拉低对比度，
+       浅色保留上一版干净的设计作为访客可选备选。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 深空底色：顶部光晕 + 科技网格
+   -------------------------------------------------------------------------- */
+html[data-theme='dark'] body {
+  background-color: var(--bs-bg);
+  background-image:
+    radial-gradient(ellipse 92% 48% at 50% -8%, rgba(34, 211, 238, 0.14), transparent 66%),
+    linear-gradient(rgba(34, 211, 238, 0.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.038) 1px, transparent 1px);
+  background-size: 100% 100%, 46px 46px, 46px 46px;
+  background-repeat: no-repeat, repeat, repeat;
+}
+
+/* --------------------------------------------------------------------------
+   2. 导航：毛玻璃 + 底部渐变线，建立全局框架
+   -------------------------------------------------------------------------- */
+html[data-theme='dark'] #nav {
+  background: rgba(7, 11, 18, 0.78);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+}
+
+/* #nav 本身是定位元素（absolute / fixed），伪元素可直接贴底 */
+html[data-theme='dark'] #nav::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.6) 26%,
+    rgba(167, 139, 250, 0.5) 62%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+html[data-theme='dark'] #nav .site-page:hover {
+  color: var(--bs-accent);
+  text-shadow: 0 0 14px rgba(34, 211, 238, 0.55);
+}
+
+html[data-theme='dark'] #nav .site-page::after {
+  background: var(--bs-accent);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.75);
+}
+
+/* --------------------------------------------------------------------------
+   3. 首屏横幅：冷色渐变 + 网格，替代原来的整块纯色
+   -------------------------------------------------------------------------- */
+html[data-theme='dark'] #page-header {
+  background-color: var(--bs-bg);
+  /* 网格层放在渐变色之上（CSS 背景层第一个最靠上）；
+     渐变色需接近不透明，否则会被主题的 mask.header 遮罩压成纯黑。 */
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.075) 1px, transparent 1px),
+    linear-gradient(158deg, #0d7fa6 0%, #1f5cbd 46%, #070b12 100%);
+  background-size: 44px 44px, 44px 44px, 100% 100%;
+  background-repeat: repeat, repeat, no-repeat;
+}
+
+/* --------------------------------------------------------------------------
+   4. 未来感标题：渐变文字
+   色标 #eaf7ff / #7fe4f5 / #b79cff 在深底上分别为 17.4:1 / 12.0:1 / 6.7:1
+   -------------------------------------------------------------------------- */
+html[data-theme='dark'] #recent-posts .article-title,
+html[data-theme='dark'] #post-info .post-title,
+html[data-theme='dark'] #page-header #site-title,
+html[data-theme='dark'] #page-header #site-subtitle {
+  background-image: linear-gradient(102deg, #eaf7ff 4%, #7fe4f5 54%, #b79cff 96%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* 回退：不支持 background-clip: text 时保留可读的前景色 */
+  color: #eaf7ff;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.005em;
+}
+
+html[data-theme='dark'] #recent-posts .article-title {
+  font-weight: 700;
+}
+
+html[data-theme='dark'] #recent-posts .article-title:hover {
+  -webkit-text-fill-color: transparent;
+  filter: brightness(1.16);
+}
+
+/* Windows 高对比度模式下必须放弃渐变，交还给系统配色 */
+@media (forced-colors: active) {
+  #recent-posts .article-title,
+  #post-info .post-title,
+  #page-header #site-title,
+  #page-header #site-subtitle {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. 卡片：霓虹描边、顶部内发光与悬浮动效
+   用 inset box-shadow 画顶部渐变线，避免与主题已有的伪元素争用
+   -------------------------------------------------------------------------- */
+html[data-theme='dark'] #recent-posts .recent-post-item,
+html[data-theme='dark'] #aside-content .card-widget,
+html[data-theme='dark'] .relatedPosts-list .pagination-related {
+  border: 1px solid rgba(34, 211, 238, 0.13);
+  box-shadow:
+    inset 0 1px 0 rgba(34, 211, 238, 0.2),
+    0 12px 30px -18px rgba(0, 0, 0, 0.9);
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+html[data-theme='dark'] #recent-posts .recent-post-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 211, 238, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(34, 211, 238, 0.55),
+    0 0 0 1px rgba(34, 211, 238, 0.18),
+    0 0 28px -6px rgba(34, 211, 238, 0.4);
+}
+
+html[data-theme='dark'] #aside-content .card-widget:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34, 211, 238, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(34, 211, 238, 0.45),
+    0 0 22px -8px rgba(34, 211, 238, 0.32);
+}
+
+/* 目录卡片跟随滚动高亮，上浮会造成阅读干扰 */
+html[data-theme='dark'] #card-toc:hover {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   5b. 分页与相关推荐的色块
+   主题在 cover 上写内联样式 background: var(--default-bg-color)，
+   在深色科技风下会变成大面积高饱和蓝块。内联样式只能用 !important 覆盖。
+   -------------------------------------------------------------------------- */
+html[data-theme='dark'] .pagination-related .cover {
+  background-color: transparent !important;
+  background-image: linear-gradient(
+    140deg,
+    rgba(34, 211, 238, 0.16) 0%,
+    rgba(167, 139, 250, 0.1) 100%
+  ) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. 正文：章节渐变竖条、链接与表格
+   -------------------------------------------------------------------------- */
+html[data-theme='dark'] #article-container h2 {
+  padding-left: 14px;
+  border-left: 3px solid var(--bs-accent);
+  border-image: linear-gradient(180deg, #22d3ee 0%, #a78bfa 100%) 1;
+}
+
+html[data-theme='dark'] #article-container a:not(.headerlink) {
+  color: var(--bs-accent);
+  text-decoration-color: rgba(34, 211, 238, 0.4);
+}
+
+html[data-theme='dark'] #article-container a:not(.headerlink):hover {
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.45);
+}
+
+html[data-theme='dark'] #article-container table th {
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.15), rgba(34, 211, 238, 0.05));
+  border-color: rgba(34, 211, 238, 0.2);
+}
+
+html[data-theme='dark'] #article-container table td {
+  border-color: rgba(34, 211, 238, 0.13);
+}
+
+html[data-theme='dark'] figure.highlight {
+  border: 1px solid rgba(34, 211, 238, 0.15);
+  box-shadow: 0 0 24px -14px rgba(34, 211, 238, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   7. 系列导航（正文内的 {% series %} 输出）
+   -------------------------------------------------------------------------- */
+.series-items {
+  padding-left: 18px;
+  border-left: 2px solid rgba(34, 211, 238, 0.35);
+}
+
+.series-items li {
+  margin: 0.35em 0;
+}
+
+html[data-theme='dark'] .series-items a {
+  color: var(--bs-accent);
+}
+
+/* --------------------------------------------------------------------------
+   8. 主题 5.6.1 缺陷屏蔽
+   scripts/tag/series.js:26 用 p.date.unix() 存秒级时间戳，
+   而卡片模板按毫秒渲染，导致系列卡片日期显示为 1970 年。
+   系列列表的价值在顺序与标题，直接隐藏该字段，不做主题源码改动。
+
+   注意：主题用
+     #aside-content .aside-list > .aside-list-item .content > time { display: block }
+   控制此处布局，特异性 (1,3,1)。必须用同构且更高的选择器 (1,4,1) 才能覆盖。
+   -------------------------------------------------------------------------- */
+#aside-content .card-post-series .aside-list > .aside-list-item .content > time {
+  display: none;
+}

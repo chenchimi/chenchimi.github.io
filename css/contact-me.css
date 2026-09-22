@@ -20,11 +20,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 4px 12px;
+  gap: 6px;
+  padding: 4px 10px;
   background-color: var(--btn-bg);
   color: var(--btn-color);
-  font-size: 0.95em;
+  /* 侧栏卡片可用宽度约 180px：0.95em 会让 21 字符的邮箱折成 "…163.co / m" */
+  font-size: 0.78em;
+  letter-spacing: -0.005em;
   line-height: 2.2;
   text-align: center;
   word-break: break-all;

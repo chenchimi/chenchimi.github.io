@@ -1,0 +1,249 @@
+/* ==========================================================================
+   博客阅读系统 —— blog-system.css
+   --------------------------------------------------------------------------
+   职责：在 design-tokens.css 的令牌之上，调整阅读宽度、首页索引密度、
+         文章页排版、深色模式边界与可访问性。
+   原则：只覆盖主题规则，不修改 node_modules 中的主题源码；
+         选择器特异性不低于主题原规则，靠加载顺序取胜。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 全局排版基线
+   -------------------------------------------------------------------------- */
+body {
+  font-size: var(--global-font-size);
+  line-height: var(--bs-line-height);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC',
+    'Noto Sans CJK SC', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 元数据统一为等宽字体：日期、分类、字数、阅读时长属于可快速扫读的结构化字段 */
+.post-meta-date,
+.post-meta-categories,
+.post-meta-wordcount,
+.post-meta-pv-cv,
+.post-meta-commentcount,
+.article-meta-wrap .article-meta,
+.article-meta-wrap .post-meta-date,
+#card-archives .card-archive-list-link,
+.card-webinfo .webinfo-item {
+  font-family:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   2. 阅读宽度
+   原布局为 1200px 内容区 + 74% 正文列，正文行宽约 830px；
+   16px 中文下约 52 字/行，超出舒适区间。收紧至 1120px 后约 46–48 字/行。
+   -------------------------------------------------------------------------- */
+main#content-inner.layout {
+  max-width: 1120px;
+}
+
+/* --------------------------------------------------------------------------
+   3. 正文排版细节：减少竖向仪式感，保持层级清晰
+   -------------------------------------------------------------------------- */
+#article-container {
+  line-height: var(--bs-line-height);
+  overflow-wrap: break-word;
+}
+
+#article-container p {
+  margin: 0 0 0.9em;
+}
+
+#article-container h2,
+#article-container h3,
+#article-container h4,
+#article-container h5,
+#article-container h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+}
+
+/* 列表与引用块收紧，避免长文被大量空白切碎 */
+#article-container ul,
+#article-container ol {
+  margin: 0.4em 0 0.9em;
+}
+
+#article-container blockquote {
+  margin: 1em 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. 代码与宽内容：局部滚动，绝不撑破页面
+   -------------------------------------------------------------------------- */
+.container pre,
+.container code {
+  font-size: var(--bs-code-font-size);
+}
+
+/* 行内代码：排除代码块内部的 code，只修主题默认前景色 #F47466 不达标的问题 */
+#article-container :not(pre) > code {
+  color: var(--bs-code-fg);
+}
+
+#article-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 宽表格在窄屏下内部横向滚动，而不是把整页顶宽 */
+#article-container table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#article-container figure.highlight {
+  max-width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   5. 首页索引：提升信息密度
+   主题的第 3 种 index_layout 为「封面左右交替 + 固定 16.8em 高度」，
+   宽屏下每屏仅容一篇，属于需要重设计的重复高卡片。
+   宽屏改为两列网格、封面统一置顶；中型屏保留交替但高度自适应。
+   -------------------------------------------------------------------------- */
+@media (min-width: 1200px) {
+  #recent-posts .recent-post-items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  #recent-posts .recent-post-item {
+    flex-direction: column;
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  /* 覆盖 .post_cover.right 的 order: 1，使封面统一在上方 */
+  #recent-posts .recent-post-item .post_cover {
+    order: 0;
+    width: 100%;
+    height: 170px;
+  }
+
+  #recent-posts .recent-post-item .post_cover img.post-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #recent-posts .recent-post-item .recent-post-info {
+    width: 100%;
+    padding: 14px 18px 16px;
+  }
+
+  #recent-posts .recent-post-item .article-title {
+    font-size: 1.08rem;
+    line-height: 1.5;
+  }
+}
+
+/* 中型屏：保留左右交替，去掉固定高度 */
+@media (min-width: 769px) and (max-width: 1199px) {
+  #recent-posts .recent-post-item {
+    height: auto;
+    min-height: 12em;
+  }
+
+  #recent-posts .recent-post-item .post_cover {
+    width: 36%;
+  }
+
+  #recent-posts .recent-post-item .recent-post-info {
+    width: 64%;
+    padding: 0 26px;
+  }
+}
+
+/* 移动端：单列，封面高度固定以保证扫描节奏一致 */
+@media (max-width: 768px) {
+  #recent-posts .recent-post-item {
+    height: auto;
+  }
+
+  #recent-posts .recent-post-item .post_cover {
+    height: 158px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5b. 侧栏列表断词
+   主题对侧栏条目使用 break-all，长标题会在词中间断开
+   （如 "…yuque-styl / e"）。改用 anywhere：优先在连字符等自然断点折行。
+   -------------------------------------------------------------------------- */
+#aside-content .aside-list-item .title,
+#aside-content .aside-list-item .content,
+#aside-content .card-recent-post .item-title {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   6. 深色模式：卡片与页面背景接近同色，需要可见的边界
+   -------------------------------------------------------------------------- */
+html[data-theme='dark'] .card-widget,
+html[data-theme='dark'] #recent-posts .recent-post-item {
+  border: 1px solid var(--bs-hairline);
+}
+
+html[data-theme='dark'] #nav {
+  border-bottom: 1px solid var(--bs-hairline);
+}
+
+/* --------------------------------------------------------------------------
+   7. 可访问性：可见焦点与减少动效
+   主题未定义 :focus-visible，且默认去掉了 button 的 outline。
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--bs-accent);
+  outline-offset: 2px;
+}
+
+#nav a:focus-visible,
+#recent-posts a:focus-visible,
+.menus_item a:focus-visible,
+#aside-content a:focus-visible {
+  outline: 2px solid var(--bs-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. 超窄屏（320–430px）：防止长标题、长链接与代码造成横向滚动
+   -------------------------------------------------------------------------- */
+@media (max-width: 430px) {
+  .article-title,
+  #post-info .post-title,
+  #article-container a {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  #article-container pre {
+    white-space: pre;
+    overflow-x: auto;
+  }
+}

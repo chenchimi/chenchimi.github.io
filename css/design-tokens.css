@@ -1,0 +1,92 @@
+/* ==========================================================================
+   设计令牌层 —— design-tokens.css
+   --------------------------------------------------------------------------
+   职责：只重设 Butterfly 的基础令牌（配色 / 排版 / 层级），不针对具体组件
+         做局部修补。组件层的改动集中在 blog-system.css。
+   加载：_config.butterfly.yml -> inject.head，位于主题主样式表之后，
+         因此在同等特异性下可直接覆盖，无需 !important。
+   ========================================================================== */
+
+:root {
+  /* ---------------- 排版基线 ----------------
+     正文 15–17px、行高 1.55–1.7 是技术阅读的舒适区间；
+     中文密度高于西文，行高取区间上限。 */
+  --global-font-size: 16px;
+  --bs-line-height: 1.75;
+  --bs-code-font-size: 14px;
+
+  /* ---------------- 强调色 ----------------
+     约束（已按 WCAG 2.1 相对亮度公式校验）：
+       · 作为按钮底色时，其上白字对比度 >= 4.5:1；
+       · 作为正文链接色时，对白底对比度 >= 4.5:1。
+     原默认色 #49B1F5 对白底仅 2.36:1，不满足任一条件，故整体换色。 */
+  --bs-accent: #0a68c4;          /* 对白 5.54:1（链接 / 焦点 / 图形） */
+  --bs-accent-strong: #084f96;   /* 悬停加深 */
+  --bs-accent-soft: rgba(10, 104, 196, 0.1);
+  --bs-accent-fill: #0a68c4;     /* 实心填充：其上白字 5.54:1 */
+  --bs-warm: #b8431a;            /* 次级强调，白字 5.45:1 */
+
+  /* ---------------- 文本层级 ----------------
+     原 --card-meta #858585 对白底仅 3.69:1，低于正文 4.5:1 要求。 */
+  --bs-meta: #606266;            /* 对白 6.11:1 */
+  --bs-meta-strong: #4b4f55;     /* 对白 8.24:1 */
+  --bs-hairline: #e2e5e9;
+  /* 主题的 $code-foreground #F47466 对白底仅 2.79:1，行内代码属于正文文本 */
+  --bs-code-fg: #b8431a;         /* 对白 5.45:1，对行内代码底 4.90:1 */
+
+  /* ---------------- 覆盖 Butterfly 令牌 ---------------- */
+  --card-meta: var(--bs-meta);
+  --toc-link-color: var(--bs-meta-strong);
+  --btn-color: #FFFFFF;
+  --btn-bg: var(--bs-accent-fill);
+  --btn-hover-color: var(--bs-warm);
+  --default-bg-color: var(--bs-accent-fill);
+  --scrollbar-color: var(--bs-accent);
+  --text-bg-hover: rgba(10, 104, 196, 0.72);
+  --headline-presudo: var(--bs-accent);
+  --blockquote-bg: var(--bs-accent-soft);
+}
+
+/* 深色主题：使用更亮的强调色以适配 #121212 底色。
+   选择器用 html[data-theme='dark']（特异性高于主题的裸 [data-theme='dark']）。 */
+html[data-theme='dark'] {
+  /* ---------------- 底色：深空蓝黑，而非中性灰 ----------------
+     科技风需要底色带有方向性（偏冷），纯灰会削弱霓虹描边的层次。 */
+  --bs-bg: #070b12;
+  --bs-card: #0e1420;
+  --bs-neon-2: #a78bfa;          /* 次强调：渐变线的另一端 */
+
+  --global-bg: var(--bs-bg);
+  --card-bg: var(--bs-card);
+  --sidebar-bg: #0a0f1a;
+  --sidebar-menu-bg: #0e1420;
+  --search-bg: #0e1420;
+
+  /* ---------------- 强调色 ----------------
+     霓虹青在深底上达 10.24:1，可安全用于正文链接、目录选中态与焦点环；
+     但它无法承载白字（1.81:1），实心填充必须另用较深的蓝（5.13:1）。 */
+  --bs-accent: #22d3ee;          /* 对卡片底 10.24:1 */
+  --bs-accent-strong: #67e8f9;
+  --bs-accent-soft: rgba(34, 211, 238, 0.12);
+  --bs-accent-fill: #1e6fd9;     /* 其上白字 4.85:1，对卡片底 3.82:1 */
+  --bs-warm: #b8431a;            /* 按钮悬停：白字 5.45:1 */
+
+  /* ---------------- 文本层级 ---------------- */
+  --font-color: #e8eef7;         /* 对卡片底 15.87:1 */
+  --bs-meta: #8b9bb4;            /* 对卡片底 6.50:1 */
+  --bs-meta-strong: #b3c2d6;     /* 对卡片底 10.23:1 */
+  --bs-hairline: rgba(34, 211, 238, 0.16);
+  /* 浅色的 #b8431a 在深色代码底 #2c2c2c 上仅 2.56:1，需换成亮色 */
+  --bs-code-fg: #f8836f;         /* 对深色代码底 5.63:1 */
+
+  --card-meta: var(--bs-meta);
+  --toc-link-color: var(--bs-meta-strong);
+  --btn-color: #FFFFFF;
+  --btn-bg: var(--bs-accent-fill);
+  --btn-hover-color: var(--bs-warm);
+  --default-bg-color: var(--bs-accent-fill);
+  --scrollbar-color: var(--bs-accent);
+  --text-bg-hover: rgba(34, 211, 238, 0.55);
+  --headline-presudo: var(--bs-accent);
+  --blockquote-bg: var(--bs-accent-soft);
+}
