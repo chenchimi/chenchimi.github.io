@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo ChenChimi | Hexo ChenChimi</title><meta name="author" content="ChenChimi"><meta name="copyright" content="ChenChimi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="一、 VLANIF 是什么？VLANIF 接口是一种三层的逻辑接口（在思科等设备中常被称为 SVI 接口）。物理上它并不存在，而是通过软件基于 VLAN 创建的。 核心作用：  实现 VLAN 间通信：VLAN 本质上是隔离二层广播域的，不同 VLAN 默认不能直接互通。VLANIF 接口在隔离的基础上，为这些孤立的广播域开了一个三层的“窗口”，使得数据包能够有控制地在不同 VLAN 间路由转发。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo ChenChimi">
+<meta property="og:url" content="https://chenchimi.github.io/post/0.html">
+<meta property="og:site_name" content="Hexo ChenChimi">
+<meta property="og:description" content="一、 VLANIF 是什么？VLANIF 接口是一种三层的逻辑接口（在思科等设备中常被称为 SVI 接口）。物理上它并不存在，而是通过软件基于 VLAN 创建的。 核心作用：  实现 VLAN 间通信：VLAN 本质上是隔离二层广播域的，不同 VLAN 默认不能直接互通。VLANIF 接口在隔离的基础上，为这些孤立的广播域开了一个三层的“窗口”，使得数据包能够有控制地在不同 VLAN 间路由转发。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenchimi.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-09-22T12:32:14.000Z">
+<meta property="article:modified_time" content="2026-09-22T12:32:42.425Z">
+<meta property="article:author" content="ChenChimi">
+<meta property="article:tag" content="VLAN">
+<meta property="article:tag" content="交换机">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenchimi.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "",
+  "url": "https://chenchimi.github.io/post/0.html",
+  "image": "https://chenchimi.github.io/img/butterfly-icon.png",
+  "datePublished": "2026-09-22T12:32:14.000Z",
+  "dateModified": "2026-09-22T12:32:42.425Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ChenChimi",
+      "url": "https://chenchimi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://chenchimi.github.io/post/0.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo ChenChimi',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/design-tokens.css"><link rel="stylesheet" href="/css/blog-system.css"><link rel="stylesheet" href="/css/tech-visual.css"><link rel="stylesheet" href="/css/contact-me.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo ChenChimi</span></a><a class="nav-page-title" href="/"><span class="site-name">Hexo ChenChimi</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">无标题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-22T12:32:14.000Z" title="发表于 2026-09-22 20:32:14">2026-09-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-22T12:32:42.425Z" title="更新于 2026-09-22 20:32:42">2026-09-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="一、-VLANIF-是什么？"><a href="#一、-VLANIF-是什么？" class="headerlink" title="一、 VLANIF 是什么？"></a>一、 VLANIF 是什么？</h3><p>VLANIF 接口是一种<strong>三层的逻辑接口</strong>（在思科等设备中常被称为 SVI 接口）。<strong><font style="color:#DF2A3F;">物理上它并不存在</font></strong>，而是通过软件基于 VLAN 创建的。</p>
+<p><strong>核心作用：</strong></p>
+<ol>
+<li><strong>实现 VLAN 间通信</strong>：VLAN 本质上是隔离二层广播域的，不同 VLAN 默认不能直接互通。VLANIF 接口在隔离的基础上，为这些孤立的广播域开了一个三层的“窗口”，使得数据包能够有控制地在不同 VLAN 间路由转发。</li>
+<li><strong>充当主机网关</strong>：每个 VLAN 对应一个 VLANIF 接口，为其配置 IP 地址后，该接口即可作为本 VLAN 内所有终端主机的默认网关，对需要跨网段的报文进行基于 IP 地址的三层转发。</li>
+</ol>
+<p><strong>关键特性：</strong></p>
+<ul>
+<li><strong>状态依赖</strong>：VLANIF 接口只有在对应的 VLAN 已经创建，且该 VLAN 内存在状态为 Up 的物理接口（或 Eth-Trunk 接口）时，VLANIF 接口状态才会变为 Up，从而进行三层转发。</li>
+<li><strong>高效性</strong>：与传统单臂路由相比，VLANIF 在三层交换机内部实现路由，无需额外路由器或线缆，配置更简单，转发性能更高，是现代网络中实现 VLAN 间路由的首选方案。</li>
+</ul>
+<h3 id="二、-如何配置-VLANIF？"><a href="#二、-如何配置-VLANIF？" class="headerlink" title="二、 如何配置 VLANIF？"></a>二、 如何配置 VLANIF？</h3><p>配置 VLANIF 接口遵循“先二层，后三层”的逻辑，标准流程主要分为以下几步：</p>
+<ol>
+<li><strong>创建 VLAN</strong>：在系统视图下创建所需的 VLAN。</li>
+<li><strong>配置物理接口加入 VLAN</strong>：将交换机连接终端的物理接口配置为 Access 模式（或 Trunk），并划入对应的 VLAN。</li>
+<li><strong>创建并配置 VLANIF 接口</strong>：为每个 VLAN 创建对应的 VLANIF 接口，并配置 IP 地址作为该网段的网关。</li>
+<li><strong>配置终端网络</strong>：为 PC 等终端配置 IP 地址，并将默认网关设置为对应 VLANIF 接口的 IP 地址。</li>
+</ol>
+<h4 id="💻-标准配置命令示例"><a href="#💻-标准配置命令示例" class="headerlink" title="💻 标准配置命令示例"></a>💻 标准配置命令示例</h4><p>以华为交换机为例，实现 VLAN 10 和 VLAN 20 互通的完整配置如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 批量创建 VLAN</span></span><br><span class="line">system<span class="literal">-view</span></span><br><span class="line">[<span class="type">Switch</span>] vlan batch <span class="number">10</span> <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 配置物理接口加入 VLAN (以Access模式为例)</span></span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port default vlan <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">2</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port default vlan <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] quit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 创建并配置 VLANIF 接口 (核心步骤)</span></span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] ip address <span class="number">192.168</span>.<span class="number">10.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] ip address <span class="number">192.168</span>.<span class="number">20.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] quit</span><br></pre></td></tr></table></figure>
+
+<p><em>(注：部分设备如华为CE系列或防火墙可能需要执行 <em><code>_commit_</code></em> 命令提交配置，防火墙还需将 VLANIF 接口加入安全区域。)</em></p>
+<p>配置完成后，交换机内部会自动产生直连路由，无需额外开启路由协议即可实现同设备上不同 VLAN 的三层互通。</p>
+<h3 id="三、-实际应用案例"><a href="#三、-实际应用案例" class="headerlink" title="三、 实际应用案例"></a>三、 实际应用案例</h3><h4 id="案例一：企业同设备不同部门互通"><a href="#案例一：企业同设备不同部门互通" class="headerlink" title="案例一：企业同设备不同部门互通"></a>案例一：企业同设备不同部门互通</h4><p>这是最常用的基础场景。假设企业网络中，研发部和市场部位于同一台三层交换机上，且属于不同网段：</p>
+<ul>
+<li><strong>研发部</strong>：VLAN 10，网段 192.168.10.0&#x2F;24</li>
+<li><strong>市场部</strong>：VLAN 20，网段 192.168.20.0&#x2F;24</li>
+</ul>
+<p>只需按上述配置在交换机上创建 VLANIF 10（IP: 192.168.10.1）和 VLANIF 20（IP: 192.168.20.1）。当研发部 PC 访问市场部服务器时，数据包先发送到本部门网关（VLANIF 10），交换机查询内部路由表后，通过 VLANIF 20 接口将数据包转发给服务器。整个过程由交换机的三层转发引擎高效完成。</p>
+<h4 id="案例二：作为网络出口网关与路由联动"><a href="#案例二：作为网络出口网关与路由联动" class="headerlink" title="案例二：作为网络出口网关与路由联动"></a>案例二：作为网络出口网关与路由联动</h4><p>在中小型网络中，三层交换机常作为用户的网关设备并连接出口路由器。此时，除了配置业务 VLANIF 接口外，还需要在交换机上配置静态路由或动态路由协议。</p>
+<p>例如，交换机通过某个物理接口或 VLANIF 接口连接到出口路由器（下一跳地址为 192.168.23.1），则需在系统视图下添加默认路由引导上网流量：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">Switch</span>] ip route<span class="literal">-static</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">192.168</span>.<span class="number">23.1</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，VLANIF 接口也常用于部署 DHCP 服务器（基于接口分配地址）或配置 DHCP 中继（<code>ip helper-address</code>），以实现跨网段的 IP 地址分配。</p>
+<hr>
+<p><strong>排查小贴士</strong>：如果配置后发现不同 VLAN 无法 ping 通，请按顺序检查：1. PC 的默认网关是否指向了正确的 VLANIF 地址；2. 对应的 VLANIF 接口状态是否为 UP（可通过 <code>display ip interface brief</code> 查看）；3. 物理接口是否正确划入了相应的 VLAN。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://chenchimi.github.io">ChenChimi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://chenchimi.github.io/post/0.html">https://chenchimi.github.io/post/0.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://chenchimi.github.io" target="_blank">Hexo ChenChimi</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/VLAN/">VLAN</a><a class="post-meta__tags" href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/">交换机</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C/">网络</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/post/c8f21845.html" title="skill推荐：Archify-图表生成"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">skill推荐：Archify-图表生成</div></div><div class="info-2"><div class="info-item-1">Archify 是一个专为 AI 编程助手设计的开源 Agent Skill，旨在将代码仓库或系统描述，通过自然语言直接转化为美观、可靠且可交互的 HTML 架构图。它并非传统的在线画板，而是将绘图能力深度嵌入到 Cursor、Claude Code 等 AI 智能体的工作流中。 核心特性Archify 试图解决...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/post/fc7028a0.html" title="一、VLAN 基础知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-04</div><div class="info-item-2">一、VLAN 基础知识</div></div><div class="info-2"><div class="info-item-1">VLAN 定义VLAN &#x3D; Virtual Local Area Network（虚拟局域网） VLAN是一种在物理网络上逻辑划分出多个独立广播域的技术，属于二层（数据链路层）技术。 核心概念    概念 说明    虚拟 逻辑划分，不依赖物理布线   局域网 局限在本地网络环境   广播域 广播帧能够...</div></div></div></a><a class="pagination-related" href="/post/2356df63.html" title="二、VLAN端口-Access Trunk Hybrid"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-04</div><div class="info-item-2">二、VLAN端口-Access Trunk Hybrid</div></div><div class="info-2"><div class="info-item-1">Access，Trunk，Hybrid 这三种端口类型，本质就是“VLAN流量的守门人”，核心区别只在于「允许哪些VLAN通过」和「对VLAN标签（Tag）的处理规则」。  VLAN标签（Tag）：相当于数据帧的“身份凭证”，交换机靠这个标签识别数据属于哪个VLAN，实现不同VLAN流量的隔离。但普通终端（PC、...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ChenChimi</div><div class="author-info-description">网络工程 / 开发工具 实践笔记</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/chenchimi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:chenchimimail@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">记录网络工程与开发工具方向的实践笔记，持续更新中。</div></div><div class="card-widget card-contact-me" id="card-contact-me"><div class="item-headline"><i class="fas fa-envelope"></i><span>联系我</span></div><div class="item-content"><div class="contact-me-box">
+  <p class="contact-me-desc">欢迎通过邮件与我交流、反馈问题或洽谈合作，我会尽快回复。</p>
+  <a class="contact-me-mail btn-effects" href="mailto:chenchimimail@163.com" title="发送邮件至 chenchimimail@163.com">
+    <i class="fas fa-paper-plane"></i><span>chenchimimail@163.com</span>
+  </a>
+</div>
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81-VLANIF-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">一、 VLANIF 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-VLANIF%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">二、 如何配置 VLANIF？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%92%BB-%E6%A0%87%E5%87%86%E9%85%8D%E7%BD%AE%E5%91%BD%E4%BB%A4%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.1.</span> <span class="toc-text">💻 标准配置命令示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">三、 实际应用案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E4%B8%80%EF%BC%9A%E4%BC%81%E4%B8%9A%E5%90%8C%E8%AE%BE%E5%A4%87%E4%B8%8D%E5%90%8C%E9%83%A8%E9%97%A8%E4%BA%92%E9%80%9A"><span class="toc-number">3.1.</span> <span class="toc-text">案例一：企业同设备不同部门互通</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E4%BA%8C%EF%BC%9A%E4%BD%9C%E4%B8%BA%E7%BD%91%E7%BB%9C%E5%87%BA%E5%8F%A3%E7%BD%91%E5%85%B3%E4%B8%8E%E8%B7%AF%E7%94%B1%E8%81%94%E5%8A%A8"><span class="toc-number">3.2.</span> <span class="toc-text">案例二：作为网络出口网关与路由联动</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/0.html" title="无标题">无标题</a><time datetime="2026-09-22T12:32:14.000Z" title="发表于 2026-09-22 20:32:14">2026-09-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/c8f21845.html" title="skill推荐：Archify-图表生成">skill推荐：Archify-图表生成</a><time datetime="2026-09-17T08:48:10.000Z" title="发表于 2026-09-17 16:48:10">2026-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/4eeb1eb0.html" title="Obsidian笔记插件-yuque-style">Obsidian笔记插件-yuque-style</a><time datetime="2026-09-17T07:16:21.000Z" title="发表于 2026-09-17 15:16:21">2026-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/2356df63.html" title="二、VLAN端口-Access Trunk Hybrid">二、VLAN端口-Access Trunk Hybrid</a><time datetime="2026-09-04T03:48:55.000Z" title="发表于 2026-09-04 11:48:55">2026-09-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/fc7028a0.html" title="一、VLAN 基础知识">一、VLAN 基础知识</a><time datetime="2026-09-04T02:35:18.000Z" title="发表于 2026-09-04 10:35:18">2026-09-04</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By ChenChimi</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.6.1</a></span></div><div class="footer_custom_text">交流 / 反馈 / 合作，欢迎邮件联系我：<a class="footer-contact-mail" href="mailto:chenchimimail@163.com" title="发送邮件至 chenchimimail@163.com"><i class="fas fa-envelope"></i> chenchimimail@163.com</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.6.1"></script><script src="/js/main.js?v=5.6.1"></script><div class="js-pjax"></div><script src="/js/reading-aids.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索标题、分类与正文…（按 / 聚焦）" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.6.1"></script></div></div></body></html>
