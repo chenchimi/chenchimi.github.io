@@ -62,59 +62,73 @@
       </tags>
   </entry>
   <entry>
-    <title>Obsidian笔记插件-yuque-style</title>
-    <url>/post/4eeb1eb0.html</url>
-    <content><![CDATA[<h1 id="yuque-style-——-在-Obsidian-里过上语雀的日子"><a href="#yuque-style-——-在-Obsidian-里过上语雀的日子" class="headerlink" title="yuque-style —— 在 Obsidian 里过上语雀的日子"></a>yuque-style —— 在 Obsidian 里过上语雀的日子</h1><p>注意：</p>
+    <title>三、VLANIF</title>
+    <url>/post/0.html</url>
+    <content><![CDATA[<h3 id="一、-VLANIF-是什么？"><a href="#一、-VLANIF-是什么？" class="headerlink" title="一、 VLANIF 是什么？"></a>一、 VLANIF 是什么？</h3><p>VLANIF 接口是一种<strong>三层的逻辑接口</strong>（在思科等设备中常被称为 SVI 接口）。<strong><font style="color:#DF2A3F;">物理上它并不存在</font></strong>，而是通过软件基于 VLAN 创建的。</p>
+<p><strong>核心作用：</strong></p>
 <ol>
-<li>插件需要使用语雀的Token</li>
-<li>插件地址：<a href="https://github.com/chenchimi/yuque-style">https://github.com/chenchimi/yuque-style</a></li>
+<li><strong>实现 VLAN 间通信</strong>：VLAN 本质上是隔离二层广播域的，不同 VLAN 默认不能直接互通。VLANIF 接口在隔离的基础上，为这些孤立的广播域开了一个三层的“窗口”，使得数据包能够有控制地在不同 VLAN 间路由转发。</li>
+<li><strong>充当主机网关</strong>：每个 VLAN 对应一个 VLANIF 接口，为其配置 IP 地址后，该接口即可作为本 VLAN 内所有终端主机的默认网关，对需要跨网段的报文进行基于 IP 地址的三层转发。</li>
 </ol>
-<p>它做两件事：</p>
-<h2 id="一、把语雀的体验搬进-Obsidian"><a href="#一、把语雀的体验搬进-Obsidian" class="headerlink" title="一、把语雀的体验搬进 Obsidian"></a>一、把语雀的体验搬进 Obsidian</h2><ul>
-<li><p><strong>语雀式排版</strong></p>
+<p><strong>关键特性：</strong></p>
 <ul>
-<li>居中栏宽</li>
-<li>1.75 行高与段间距</li>
-<li>图片圆角、居中、限高</li>
-<li>宽表格横向滚动</li>
+<li><strong>状态依赖</strong>：VLANIF 接口只有在对应的 VLAN 已经创建，且该 VLAN 内存在状态为 Up 的物理接口（或 Eth-Trunk 接口）时，VLANIF 接口状态才会变为 Up，从而进行三层转发。</li>
+<li><strong>高效性</strong>：与传统单臂路由相比，VLANIF 在三层交换机内部实现路由，无需额外路由器或线缆，配置更简单，转发性能更高，是现代网络中实现 VLAN 间路由的首选方案。</li>
 </ul>
-</li>
-<li><p><strong>悬浮格式工具栏</strong></p>
+<h3 id="二、-如何配置-VLANIF？"><a href="#二、-如何配置-VLANIF？" class="headerlink" title="二、 如何配置 VLANIF？"></a>二、 如何配置 VLANIF？</h3><p>配置 VLANIF 接口遵循“先二层，后三层”的逻辑，标准流程主要分为以下几步：</p>
+<ol>
+<li><strong>创建 VLAN</strong>：在系统视图下创建所需的 VLAN。</li>
+<li><strong>配置物理接口加入 VLAN</strong>：将交换机连接终端的物理接口配置为 Access 模式（或 Trunk），并划入对应的 VLAN。</li>
+<li><strong>创建并配置 VLANIF 接口</strong>：为每个 VLAN 创建对应的 VLANIF 接口，并配置 IP 地址作为该网段的网关。</li>
+<li><strong>配置终端网络</strong>：为 PC 等终端配置 IP 地址，并将默认网关设置为对应 VLANIF 接口的 IP 地址。</li>
+</ol>
+<h4 id="💻-标准配置命令示例"><a href="#💻-标准配置命令示例" class="headerlink" title="💻 标准配置命令示例"></a>💻 标准配置命令示例</h4><p>以华为交换机为例，实现 VLAN 10 和 VLAN 20 互通的完整配置如下：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 批量创建 VLAN</span></span><br><span class="line">system<span class="literal">-view</span></span><br><span class="line">[<span class="type">Switch</span>] vlan batch <span class="number">10</span> <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 配置物理接口加入 VLAN (以Access模式为例)</span></span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port default vlan <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">2</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port default vlan <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] quit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 创建并配置 VLANIF 接口 (核心步骤)</span></span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] ip address <span class="number">192.168</span>.<span class="number">10.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] ip address <span class="number">192.168</span>.<span class="number">20.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] quit</span><br></pre></td></tr></table></figure>
+
+<p><em>(注：部分设备如华为CE系列或防火墙可能需要执行 <em><code>_commit_</code></em> 命令提交配置，防火墙还需将 VLANIF 接口加入安全区域。)</em></p>
+<p>配置完成后，交换机内部会自动产生直连路由，无需额外开启路由协议即可实现同设备上不同 VLAN 的三层互通。</p>
+<h3 id="三、-实际应用案例"><a href="#三、-实际应用案例" class="headerlink" title="三、 实际应用案例"></a>三、 实际应用案例</h3><h4 id="案例一：企业同设备不同部门互通"><a href="#案例一：企业同设备不同部门互通" class="headerlink" title="案例一：企业同设备不同部门互通"></a>案例一：企业同设备不同部门互通</h4><p>这是最常用的基础场景。假设企业网络中，研发部和市场部位于同一台三层交换机上，且属于不同网段：</p>
 <ul>
-<li>选中文字即现</li>
-<li>表格里会自动切换成表格工具条</li>
+<li><strong>研发部</strong>：VLAN 10，网段 192.168.10.0&#x2F;24</li>
+<li><strong>市场部</strong>：VLAN 20，网段 192.168.20.0&#x2F;24</li>
 </ul>
-</li>
-<li><p><strong>块插入菜单</strong></p>
-<ul>
-<li>输入 <code>/</code> 唤起</li>
-<li>10 种 Callout 卡片</li>
-<li>折叠块</li>
-<li>目录块</li>
-<li>两栏对比</li>
-<li>13 种语言代码块</li>
-</ul>
-</li>
-<li><p><strong>标题层级自动编号</strong></p>
-</li>
-<li><p><strong>文档头显示</strong></p>
-<ul>
-<li>字数</li>
-<li>语雀真实的创建 &#x2F; 更新时间</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、把语雀的内容搬到本地"><a href="#二、把语雀的内容搬到本地" class="headerlink" title="二、把语雀的内容搬到本地"></a>二、把语雀的内容搬到本地</h2><ul>
-<li><strong>增量同步</strong>：按 <code>updated_at</code> 同步</li>
-<li><strong>目录还原</strong>：还原知识库目录树，并生成索引页</li>
-<li><strong>图片本地化</strong>：图片自动下载到本地，避免外链失效</li>
-<li><strong>双链转换</strong>：文档间引用转成 <code>[[双链]]</code>，跨知识库也认</li>
-<li><strong>中文属性</strong>：每篇文档写入标题 &#x2F; 来源 &#x2F; 语雀 ID &#x2F; 语雀创建时间 &#x2F; 语雀更新时间</li>
-</ul>
+<p>只需按上述配置在交换机上创建 VLANIF 10（IP: 192.168.10.1）和 VLANIF 20（IP: 192.168.20.1）。当研发部 PC 访问市场部服务器时，数据包先发送到本部门网关（VLANIF 10），交换机查询内部路由表后，通过 VLANIF 20 接口将数据包转发给服务器。整个过程由交换机的三层转发引擎高效完成。</p>
+<h4 id="案例二：作为网络出口网关与路由联动"><a href="#案例二：作为网络出口网关与路由联动" class="headerlink" title="案例二：作为网络出口网关与路由联动"></a>案例二：作为网络出口网关与路由联动</h4><p>在中小型网络中，三层交换机常作为用户的网关设备并连接出口路由器。此时，除了配置业务 VLANIF 接口外，还需要在交换机上配置静态路由或动态路由协议。</p>
+<p>例如，交换机通过某个物理接口或 VLANIF 接口连接到出口路由器（下一跳地址为 192.168.23.1），则需在系统视图下添加默认路由引导上网流量：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">[<span class="type">Switch</span>] ip route<span class="literal">-static</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">192.168</span>.<span class="number">23.1</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，VLANIF 接口也常用于部署 DHCP 服务器（基于接口分配地址）或配置 DHCP 中继（<code>ip helper-address</code>），以实现跨网段的 IP 地址分配。</p>
+<hr>
+<p><strong>排查小贴士</strong>：如果配置后发现不同 VLAN 无法 ping 通，请按顺序检查：1. PC 的默认网关是否指向了正确的 VLANIF 地址；2. 对应的 VLANIF 接口状态是否为 UP（可通过 <code>display ip interface brief</code> 查看）；3. 物理接口是否正确划入了相应的 VLAN。</p>
+<table>
+<thead>
+<tr>
+<th>列 A</th>
+<th>列 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内容</td>
+<td>内容</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>列 A</th>
+<th>列 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内容</td>
+<td>内容</td>
+</tr>
+</tbody></table>
 ]]></content>
       <tags>
-        <tag>Obsidian</tag>
-        <tag>语雀</tag>
+        <tag>VLAN</tag>
+        <tag>网络</tag>
+        <tag>交换机</tag>
       </tags>
   </entry>
   <entry>
@@ -450,79 +464,125 @@
 ]]></content>
       <tags>
         <tag>VLAN</tag>
+        <tag>网络</tag>
         <tag>交换机</tag>
         <tag>数通</tag>
-        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
-    <title>三、VLANIF</title>
-    <url>/post/0.html</url>
-    <content><![CDATA[<h3 id="一、-VLANIF-是什么？"><a href="#一、-VLANIF-是什么？" class="headerlink" title="一、 VLANIF 是什么？"></a>一、 VLANIF 是什么？</h3><p>VLANIF 接口是一种<strong>三层的逻辑接口</strong>（在思科等设备中常被称为 SVI 接口）。<strong><font style="color:#DF2A3F;">物理上它并不存在</font></strong>，而是通过软件基于 VLAN 创建的。</p>
-<p><strong>核心作用：</strong></p>
-<ol>
-<li><strong>实现 VLAN 间通信</strong>：VLAN 本质上是隔离二层广播域的，不同 VLAN 默认不能直接互通。VLANIF 接口在隔离的基础上，为这些孤立的广播域开了一个三层的“窗口”，使得数据包能够有控制地在不同 VLAN 间路由转发。</li>
-<li><strong>充当主机网关</strong>：每个 VLAN 对应一个 VLANIF 接口，为其配置 IP 地址后，该接口即可作为本 VLAN 内所有终端主机的默认网关，对需要跨网段的报文进行基于 IP 地址的三层转发。</li>
-</ol>
-<p><strong>关键特性：</strong></p>
+    <title>skill推荐：Archify-图表生成</title>
+    <url>/post/c8f21845.html</url>
+    <content><![CDATA[<p>Archify 是一个专为 AI 编程助手设计的开源 <strong>Agent Skill</strong>，旨在将代码仓库或系统描述，通过自然语言直接转化为<strong>美观、可靠且可交互的 HTML 架构图</strong>。它并非传统的在线画板，而是将绘图能力深度嵌入到 Cursor、Claude Code 等 AI 智能体的工作流中。</p>
+<h2 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h2><p>Archify 试图解决传统绘图工具（如 draw.io 手动拖拽繁琐、Mermaid 复杂图表易混乱）的痛点。其核心优势在于：</p>
 <ul>
-<li><strong>状态依赖</strong>：VLANIF 接口只有在对应的 VLAN 已经创建，且该 VLAN 内存在状态为 Up 的物理接口（或 Eth-Trunk 接口）时，VLANIF 接口状态才会变为 Up，从而进行三层转发。</li>
-<li><strong>高效性</strong>：与传统单臂路由相比，VLANIF 在三层交换机内部实现路由，无需额外路由器或线缆，配置更简单，转发性能更高，是现代网络中实现 VLAN 间路由的首选方案。</li>
+<li><strong>自然语言驱动</strong>：无需学习绘图语法，只需向 AI 描述你的系统架构或技术意图，即可生成图表。</li>
+<li><strong>可验证的可靠性</strong>：工作流程为“生成 JSON IR → 规则验证 → 渲染”，确保生成的图表在逻辑和结构上是准确的，避免“看起来漂亮但实际有误”的情况。</li>
+<li><strong>交互式成品</strong>：生成的 HTML 文件是独立的，支持<strong>搜索节点、追踪调用路径、切换深浅主题</strong>等交互操作，便于演示和沟通。</li>
+<li><strong>对话式迭代</strong>：如果对图表不满意，可以直接用自然语言指令让 AI 修改，例如“加入 Redis”或“突出缓存失效后的回退路径”，无需从头重画。</li>
+<li><strong>多格式导出</strong>：支持导出为 <strong>PNG、SVG、WebM</strong> 等格式，方便嵌入文档或分享。</li>
 </ul>
-<h3 id="二、-如何配置-VLANIF？"><a href="#二、-如何配置-VLANIF？" class="headerlink" title="二、 如何配置 VLANIF？"></a>二、 如何配置 VLANIF？</h3><p>配置 VLANIF 接口遵循“先二层，后三层”的逻辑，标准流程主要分为以下几步：</p>
-<ol>
-<li><strong>创建 VLAN</strong>：在系统视图下创建所需的 VLAN。</li>
-<li><strong>配置物理接口加入 VLAN</strong>：将交换机连接终端的物理接口配置为 Access 模式（或 Trunk），并划入对应的 VLAN。</li>
-<li><strong>创建并配置 VLANIF 接口</strong>：为每个 VLAN 创建对应的 VLANIF 接口，并配置 IP 地址作为该网段的网关。</li>
-<li><strong>配置终端网络</strong>：为 PC 等终端配置 IP 地址，并将默认网关设置为对应 VLANIF 接口的 IP 地址。</li>
-</ol>
-<h4 id="💻-标准配置命令示例"><a href="#💻-标准配置命令示例" class="headerlink" title="💻 标准配置命令示例"></a>💻 标准配置命令示例</h4><p>以华为交换机为例，实现 VLAN 10 和 VLAN 20 互通的完整配置如下：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 批量创建 VLAN</span></span><br><span class="line">system<span class="literal">-view</span></span><br><span class="line">[<span class="type">Switch</span>] vlan batch <span class="number">10</span> <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 配置物理接口加入 VLAN (以Access模式为例)</span></span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port default vlan <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">2</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port default vlan <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] quit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 创建并配置 VLANIF 接口 (核心步骤)</span></span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] ip address <span class="number">192.168</span>.<span class="number">10.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] ip address <span class="number">192.168</span>.<span class="number">20.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] quit</span><br></pre></td></tr></table></figure>
-
-<p><em>(注：部分设备如华为CE系列或防火墙可能需要执行 <em><code>_commit_</code></em> 命令提交配置，防火墙还需将 VLANIF 接口加入安全区域。)</em></p>
-<p>配置完成后，交换机内部会自动产生直连路由，无需额外开启路由协议即可实现同设备上不同 VLAN 的三层互通。</p>
-<h3 id="三、-实际应用案例"><a href="#三、-实际应用案例" class="headerlink" title="三、 实际应用案例"></a>三、 实际应用案例</h3><h4 id="案例一：企业同设备不同部门互通"><a href="#案例一：企业同设备不同部门互通" class="headerlink" title="案例一：企业同设备不同部门互通"></a>案例一：企业同设备不同部门互通</h4><p>这是最常用的基础场景。假设企业网络中，研发部和市场部位于同一台三层交换机上，且属于不同网段：</p>
+<h2 id="支持的图表类型"><a href="#支持的图表类型" class="headerlink" title="支持的图表类型"></a>支持的图表类型</h2><p>Archify 目前支持五种技术图表，覆盖了大部分开发场景：</p>
+<table>
+<thead>
+<tr>
+<th align="left">图表类型</th>
+<th align="left">适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Architecture</strong> (架构图)</td>
+<td align="left">展示组件、服务、存储和系统边界，如微服务架构、云架构。</td>
+</tr>
+<tr>
+<td align="left"><strong>Workflow</strong> (工作流图)</td>
+<td align="left">描述有序的工作流程，如 CI&#x2F;CD 流水线、审批流程。</td>
+</tr>
+<tr>
+<td align="left"><strong>Sequence</strong> (时序图)</td>
+<td align="left">展示调用、返回、缓存未命中等时序交互，如 API 调用链。</td>
+</tr>
+<tr>
+<td align="left"><strong>Data Flow</strong> (数据流图)</td>
+<td align="left">描绘数据的移动、转换和消费，如 ETL 管道、数据血缘。</td>
+</tr>
+<tr>
+<td align="left"><strong>Lifecycle</strong> (生命周期图)</td>
+<td align="left">表示状态、重试、等待和最终结果，如订单状态流转。</td>
+</tr>
+</tbody></table>
+<h2 id="国内使用"><a href="#国内使用" class="headerlink" title="国内使用"></a>国内使用</h2><h3 id="Archify-在-Trae-与-Trae-CN-中的支持情况"><a href="#Archify-在-Trae-与-Trae-CN-中的支持情况" class="headerlink" title="Archify 在 Trae 与 Trae CN 中的支持情况"></a>Archify 在 Trae 与 Trae CN 中的支持情况</h3><p><strong>Trae CN 的 Skill 安装方式</strong>：</p>
 <ul>
-<li><strong>研发部</strong>：VLAN 10，网段 192.168.10.0&#x2F;24</li>
-<li><strong>市场部</strong>：VLAN 20，网段 192.168.20.0&#x2F;24</li>
+<li><strong>项目级</strong>：将 Skill 放在项目目录下的 <code>.trae/skills/</code> 中。</li>
+<li><strong>全局级</strong>：放在 <code>C:\Users\你的用户名\.trae-cn\skills</code> 目录下，Trae CN 会自动解析。</li>
+<li><strong>命令行安装</strong>：需在指令后加上 <code>--agent trae-cn</code> 后缀绑定，否则无法通过可视化界面管理。</li>
 </ul>
-<p>只需按上述配置在交换机上创建 VLANIF 10（IP: 192.168.10.1）和 VLANIF 20（IP: 192.168.20.1）。当研发部 PC 访问市场部服务器时，数据包先发送到本部门网关（VLANIF 10），交换机查询内部路由表后，通过 VLANIF 20 接口将数据包转发给服务器。整个过程由交换机的三层转发引擎高效完成。</p>
-<h4 id="案例二：作为网络出口网关与路由联动"><a href="#案例二：作为网络出口网关与路由联动" class="headerlink" title="案例二：作为网络出口网关与路由联动"></a>案例二：作为网络出口网关与路由联动</h4><p>在中小型网络中，三层交换机常作为用户的网关设备并连接出口路由器。此时，除了配置业务 VLANIF 接口外，还需要在交换机上配置静态路由或动态路由协议。</p>
-<p>例如，交换机通过某个物理接口或 VLANIF 接口连接到出口路由器（下一跳地址为 192.168.23.1），则需在系统视图下添加默认路由引导上网流量：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">[<span class="type">Switch</span>] ip route<span class="literal">-static</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">192.168</span>.<span class="number">23.1</span></span><br></pre></td></tr></table></figure>
-
-<p>此外，VLANIF 接口也常用于部署 DHCP 服务器（基于接口分配地址）或配置 DHCP 中继（<code>ip helper-address</code>），以实现跨网段的 IP 地址分配。</p>
 <hr>
-<p><strong>排查小贴士</strong>：如果配置后发现不同 VLAN 无法 ping 通，请按顺序检查：1. PC 的默认网关是否指向了正确的 VLANIF 地址；2. 对应的 VLANIF 接口状态是否为 UP（可通过 <code>display ip interface brief</code> 查看）；3. 物理接口是否正确划入了相应的 VLAN。</p>
-<table>
-<thead>
-<tr>
-<th>列 A</th>
-<th>列 B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>内容</td>
-<td>内容</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>列 A</th>
-<th>列 B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>内容</td>
-<td>内容</td>
-</tr>
-</tbody></table>
+<p><strong>实际差异</strong>：由于 Trae CN 使用国产模型（如 DeepSeek、豆包等），而 Archify Skill 本身只是一个结构化使用说明书（SKILL.md），<strong>Skill 机制本身不依赖特定模型</strong>，因此 Archify 在 Trae CN 中可以正常安装和调用。但模型能力的差异可能影响 AI 对架构描述的<strong>理解和生成质量</strong>，复杂场景下国际版模型（如 Claude、GPT）通常表现更优。</p>
+<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h3><ul>
+<li><strong>日常开发、预算敏感、网络环境受限</strong> → 优先选 <strong>Trae CN</strong>，免费使用国产模型，国内直连，Archify Skill 可正常集成。</li>
+<li><strong>需要 Claude&#x2F;GPT 级别模型能力、复杂架构生成场景</strong> → 考虑 <strong>Trae 国际版</strong>，但需准备国际网络环境和付费预算。</li>
+<li><strong>Archify 本身</strong>在两个版本中都能用，关键差异在于<strong>底层模型的架构理解能力</strong>，而非 Skill 机制的支持与否。</li>
+</ul>
+<h2 id="在-Trae-CN-中使用-Archify"><a href="#在-Trae-CN-中使用-Archify" class="headerlink" title="在 Trae CN 中使用 Archify"></a>在 Trae CN 中使用 Archify</h2><p>在 Trae CN 中使用 Archify，核心是通过 <code>npx skills</code> 命令将它安装为一个 <strong>Skill</strong>，之后就能在 AI 对话中直接调用了。</p>
+<p>请确保环境满足以下条件：</p>
+<ul>
+<li><strong>Trae CN 版本</strong>：确认版本号 <strong>≥ 3.3.21</strong>，低版本不支持 Skill 功能。</li>
+<li><strong>运行环境</strong>：Archify Skill 依赖 Node.js，请确保已安装 <strong>Node.js ≥ 16.0</strong>，同时 <code>npx</code> 也会随之自动安装。</li>
+</ul>
+<p>安装 Archify Skill</p>
+<p>Archify 的安装主要通过 <code>npx</code> 命令完成，针对 Trae CN 需要指定 <code>--agent trae-cn</code> 参数。</p>
+<h3 id="方式一：全局安装（推荐）"><a href="#方式一：全局安装（推荐）" class="headerlink" title="方式一：全局安装（推荐）"></a>方式一：全局安装（推荐）</h3><p>在终端中执行以下命令，将 Archify 安装为全局 Skill，在所有项目中都可使用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx skills add tt-a1i/archify --agent trae-cn --global</span><br></pre></td></tr></table></figure>
+
+<h3 id="方式二：项目级安装"><a href="#方式二：项目级安装" class="headerlink" title="方式二：项目级安装"></a>方式二：项目级安装</h3><p>如果希望只在特定项目中使用，可以去掉 <code>--global</code> 参数，在项目根目录下执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx skills add tt-a1i/archify --agent trae-cn</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：命令中的 <code>--agent trae-cn</code> 是<strong>必须的</strong>，用于告知安装工具目标环境是 Trae 国内版。如果误用为国际版参数 <code>trae</code>，Skill 将无法在 Trae CN 中正常加载。</p>
+</blockquote>
+<h3 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h3><p>安装完成后，可以通过以下方式确认 Skill 是否就绪：</p>
+<ul>
+<li><strong>检查目录</strong>：全局安装的 Skill 通常存放在 <code>C:\Users\你的用户名\.trae-cn\skills</code> 目录下。</li>
+<li><strong>对话验证</strong>：在 Trae CN 的 AI 对话框中直接输入测试指令，例如：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Use archify to draw: Browser -&gt; API Gateway -&gt; Auth Service -&gt; Redis -&gt; PostgreSQL</span><br></pre></td></tr></table></figure>
+
+<p>如果 Archify 正常工作，它会开始处理并生成图表。</p>
+<h2 id="如何使用-Archify"><a href="#如何使用-Archify" class="headerlink" title="如何使用 Archify"></a>如何使用 Archify</h2><p>Archify 的设计理念是“在对话中生成图表”，因此其使用方式主要围绕 AI 编程助手展开。同时，它也提供了命令行工具供高级用户或集成场景使用。</p>
+<h3 id="环境准备与安装"><a href="#环境准备与安装" class="headerlink" title="环境准备与安装"></a>环境准备与安装</h3><p>Archify 基于 Node.js，需要 <strong>Node.js 18 或更高版本</strong>。</p>
+<p>最便捷的安装方式是通过 <code>skills</code> 命令行工具进行全局安装：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">npx skills add tt<span class="literal">-a1i</span>/archify <span class="literal">-g</span></span><br></pre></td></tr></table></figure>
+
+<p>安装后，你可以运行诊断命令 <code>node bin/archify.mjs doctor</code> 来验证环境是否就绪。</p>
+<h3 id="基本用法（推荐）"><a href="#基本用法（推荐）" class="headerlink" title="基本用法（推荐）"></a>基本用法（推荐）</h3><p>安装完成后，你无需手动操作命令行。直接在支持 Skill 的 AI 编程助手（如 <strong>Cursor、Claude Code、Codex CLI、OpenCode、Raven</strong>）的对话中，用自然语言提出你的需求即可。</p>
+<p><strong>示例指令</strong>：</p>
+<ul>
+<li>“分析这个代码仓库，并生成一张高层运行时架构图。”</li>
+<li>“使用 archify 为这个仓库的运行时架构生成图表。”</li>
+<li>“展示一个带有 JWT 认证、Redis 缓存未命中和数据库回退的 API 请求时序图。”</li>
+</ul>
+<p>AI Agent 会理解你的意图，生成结构化的 JSON 数据，然后由 Archify 负责验证和渲染，最终输出一个可交互的 HTML 文件。</p>
+<h3 id="命令行用法（高级-集成）"><a href="#命令行用法（高级-集成）" class="headerlink" title="命令行用法（高级&#x2F;集成）"></a>命令行用法（高级&#x2F;集成）</h3><p>对于需要将 Archify 集成到 CI&#x2F;CD 管道或进行精确控制的用户，可以使用其 CLI 工具 <code>archify/bin/archify.mjs</code>。完整的命令包括 <code>validate</code> (验证)、<code>render</code> (渲染)、<code>deliver</code> (交付)、<code>compare</code> (对比) 等。</p>
+<p>一个典型的手动工作流如下：</p>
+<ol>
+<li><strong>选择图表类型</strong>：根据你要回答的问题，选择对应的图表类型（如 <code>architecture</code>）。</li>
+<li><strong>编写源文件</strong>：创建一个符合 Schema 的 JSON 源文件，建议从官方示例（如 <code>examples/web-app.architecture.json</code>）开始修改。</li>
+<li><strong>验证</strong>：使用 <code>validate</code> 命令在渲染前检查 JSON 文件的正确性。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">node bin/archify.mjs validate architecture path/to/diagram.json <span class="literal">--quality</span> showcase <span class="literal">--json</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>交付</strong>：使用 <code>deliver</code> 命令生成最终的 HTML 成品，该命令会冻结版本并生成可信任的交付物。</li>
+</ol>
+<p>Archify 将架构图的创建从一项繁琐的“画图”任务，转变为一次自然的“对话”和“验证”过程，尤其适合需要频繁更新架构文档的开发团队。</p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><ul>
+<li><strong>Archify 国内主要用途</strong>：作为 AI 编程工具（Trae、Cursor 等）的 Skill，生成架构图；生成的图表也可嵌入飞书、钉钉文档。</li>
+<li><strong>Trae vs Trae CN</strong>：国际版与国内版，账号数据独立，模型和网络访问不同；Archify 在两个版本中均可通过 Skill 机制集成，但底层模型能力会影响生成质量。</li>
+</ul>
 ]]></content>
       <tags>
-        <tag>VLAN</tag>
-        <tag>交换机</tag>
-        <tag>网络</tag>
+        <tag>skill</tag>
+        <tag>AI</tag>
       </tags>
   </entry>
   <entry>
@@ -533,6 +593,62 @@
 ]]></content>
       <tags>
         <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Obsidian笔记插件-yuque-style</title>
+    <url>/post/4eeb1eb0.html</url>
+    <content><![CDATA[<h1 id="yuque-style-——-在-Obsidian-里过上语雀的日子"><a href="#yuque-style-——-在-Obsidian-里过上语雀的日子" class="headerlink" title="yuque-style —— 在 Obsidian 里过上语雀的日子"></a>yuque-style —— 在 Obsidian 里过上语雀的日子</h1><p>注意：</p>
+<ol>
+<li>插件需要使用语雀的Token</li>
+<li>插件地址：<a href="https://github.com/chenchimi/yuque-style">https://github.com/chenchimi/yuque-style</a></li>
+</ol>
+<p>它做两件事：</p>
+<h2 id="一、把语雀的体验搬进-Obsidian"><a href="#一、把语雀的体验搬进-Obsidian" class="headerlink" title="一、把语雀的体验搬进 Obsidian"></a>一、把语雀的体验搬进 Obsidian</h2><ul>
+<li><p><strong>语雀式排版</strong></p>
+<ul>
+<li>居中栏宽</li>
+<li>1.75 行高与段间距</li>
+<li>图片圆角、居中、限高</li>
+<li>宽表格横向滚动</li>
+</ul>
+</li>
+<li><p><strong>悬浮格式工具栏</strong></p>
+<ul>
+<li>选中文字即现</li>
+<li>表格里会自动切换成表格工具条</li>
+</ul>
+</li>
+<li><p><strong>块插入菜单</strong></p>
+<ul>
+<li>输入 <code>/</code> 唤起</li>
+<li>10 种 Callout 卡片</li>
+<li>折叠块</li>
+<li>目录块</li>
+<li>两栏对比</li>
+<li>13 种语言代码块</li>
+</ul>
+</li>
+<li><p><strong>标题层级自动编号</strong></p>
+</li>
+<li><p><strong>文档头显示</strong></p>
+<ul>
+<li>字数</li>
+<li>语雀真实的创建 &#x2F; 更新时间</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、把语雀的内容搬到本地"><a href="#二、把语雀的内容搬到本地" class="headerlink" title="二、把语雀的内容搬到本地"></a>二、把语雀的内容搬到本地</h2><ul>
+<li><strong>增量同步</strong>：按 <code>updated_at</code> 同步</li>
+<li><strong>目录还原</strong>：还原知识库目录树，并生成索引页</li>
+<li><strong>图片本地化</strong>：图片自动下载到本地，避免外链失效</li>
+<li><strong>双链转换</strong>：文档间引用转成 <code>[[双链]]</code>，跨知识库也认</li>
+<li><strong>中文属性</strong>：每篇文档写入标题 &#x2F; 来源 &#x2F; 语雀 ID &#x2F; 语雀创建时间 &#x2F; 语雀更新时间</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Obsidian</tag>
+        <tag>语雀</tag>
       </tags>
   </entry>
   <entry>
@@ -696,125 +812,9 @@
 ]]></content>
       <tags>
         <tag>VLAN</tag>
+        <tag>网络</tag>
         <tag>交换机</tag>
         <tag>数通</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>skill推荐：Archify-图表生成</title>
-    <url>/post/c8f21845.html</url>
-    <content><![CDATA[<p>Archify 是一个专为 AI 编程助手设计的开源 <strong>Agent Skill</strong>，旨在将代码仓库或系统描述，通过自然语言直接转化为<strong>美观、可靠且可交互的 HTML 架构图</strong>。它并非传统的在线画板，而是将绘图能力深度嵌入到 Cursor、Claude Code 等 AI 智能体的工作流中。</p>
-<h2 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h2><p>Archify 试图解决传统绘图工具（如 draw.io 手动拖拽繁琐、Mermaid 复杂图表易混乱）的痛点。其核心优势在于：</p>
-<ul>
-<li><strong>自然语言驱动</strong>：无需学习绘图语法，只需向 AI 描述你的系统架构或技术意图，即可生成图表。</li>
-<li><strong>可验证的可靠性</strong>：工作流程为“生成 JSON IR → 规则验证 → 渲染”，确保生成的图表在逻辑和结构上是准确的，避免“看起来漂亮但实际有误”的情况。</li>
-<li><strong>交互式成品</strong>：生成的 HTML 文件是独立的，支持<strong>搜索节点、追踪调用路径、切换深浅主题</strong>等交互操作，便于演示和沟通。</li>
-<li><strong>对话式迭代</strong>：如果对图表不满意，可以直接用自然语言指令让 AI 修改，例如“加入 Redis”或“突出缓存失效后的回退路径”，无需从头重画。</li>
-<li><strong>多格式导出</strong>：支持导出为 <strong>PNG、SVG、WebM</strong> 等格式，方便嵌入文档或分享。</li>
-</ul>
-<h2 id="支持的图表类型"><a href="#支持的图表类型" class="headerlink" title="支持的图表类型"></a>支持的图表类型</h2><p>Archify 目前支持五种技术图表，覆盖了大部分开发场景：</p>
-<table>
-<thead>
-<tr>
-<th align="left">图表类型</th>
-<th align="left">适用场景</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>Architecture</strong> (架构图)</td>
-<td align="left">展示组件、服务、存储和系统边界，如微服务架构、云架构。</td>
-</tr>
-<tr>
-<td align="left"><strong>Workflow</strong> (工作流图)</td>
-<td align="left">描述有序的工作流程，如 CI&#x2F;CD 流水线、审批流程。</td>
-</tr>
-<tr>
-<td align="left"><strong>Sequence</strong> (时序图)</td>
-<td align="left">展示调用、返回、缓存未命中等时序交互，如 API 调用链。</td>
-</tr>
-<tr>
-<td align="left"><strong>Data Flow</strong> (数据流图)</td>
-<td align="left">描绘数据的移动、转换和消费，如 ETL 管道、数据血缘。</td>
-</tr>
-<tr>
-<td align="left"><strong>Lifecycle</strong> (生命周期图)</td>
-<td align="left">表示状态、重试、等待和最终结果，如订单状态流转。</td>
-</tr>
-</tbody></table>
-<h2 id="国内使用"><a href="#国内使用" class="headerlink" title="国内使用"></a>国内使用</h2><h3 id="Archify-在-Trae-与-Trae-CN-中的支持情况"><a href="#Archify-在-Trae-与-Trae-CN-中的支持情况" class="headerlink" title="Archify 在 Trae 与 Trae CN 中的支持情况"></a>Archify 在 Trae 与 Trae CN 中的支持情况</h3><p><strong>Trae CN 的 Skill 安装方式</strong>：</p>
-<ul>
-<li><strong>项目级</strong>：将 Skill 放在项目目录下的 <code>.trae/skills/</code> 中。</li>
-<li><strong>全局级</strong>：放在 <code>C:\Users\你的用户名\.trae-cn\skills</code> 目录下，Trae CN 会自动解析。</li>
-<li><strong>命令行安装</strong>：需在指令后加上 <code>--agent trae-cn</code> 后缀绑定，否则无法通过可视化界面管理。</li>
-</ul>
-<hr>
-<p><strong>实际差异</strong>：由于 Trae CN 使用国产模型（如 DeepSeek、豆包等），而 Archify Skill 本身只是一个结构化使用说明书（SKILL.md），<strong>Skill 机制本身不依赖特定模型</strong>，因此 Archify 在 Trae CN 中可以正常安装和调用。但模型能力的差异可能影响 AI 对架构描述的<strong>理解和生成质量</strong>，复杂场景下国际版模型（如 Claude、GPT）通常表现更优。</p>
-<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h3><ul>
-<li><strong>日常开发、预算敏感、网络环境受限</strong> → 优先选 <strong>Trae CN</strong>，免费使用国产模型，国内直连，Archify Skill 可正常集成。</li>
-<li><strong>需要 Claude&#x2F;GPT 级别模型能力、复杂架构生成场景</strong> → 考虑 <strong>Trae 国际版</strong>，但需准备国际网络环境和付费预算。</li>
-<li><strong>Archify 本身</strong>在两个版本中都能用，关键差异在于<strong>底层模型的架构理解能力</strong>，而非 Skill 机制的支持与否。</li>
-</ul>
-<h2 id="在-Trae-CN-中使用-Archify"><a href="#在-Trae-CN-中使用-Archify" class="headerlink" title="在 Trae CN 中使用 Archify"></a>在 Trae CN 中使用 Archify</h2><p>在 Trae CN 中使用 Archify，核心是通过 <code>npx skills</code> 命令将它安装为一个 <strong>Skill</strong>，之后就能在 AI 对话中直接调用了。</p>
-<p>请确保环境满足以下条件：</p>
-<ul>
-<li><strong>Trae CN 版本</strong>：确认版本号 <strong>≥ 3.3.21</strong>，低版本不支持 Skill 功能。</li>
-<li><strong>运行环境</strong>：Archify Skill 依赖 Node.js，请确保已安装 <strong>Node.js ≥ 16.0</strong>，同时 <code>npx</code> 也会随之自动安装。</li>
-</ul>
-<p>安装 Archify Skill</p>
-<p>Archify 的安装主要通过 <code>npx</code> 命令完成，针对 Trae CN 需要指定 <code>--agent trae-cn</code> 参数。</p>
-<h3 id="方式一：全局安装（推荐）"><a href="#方式一：全局安装（推荐）" class="headerlink" title="方式一：全局安装（推荐）"></a>方式一：全局安装（推荐）</h3><p>在终端中执行以下命令，将 Archify 安装为全局 Skill，在所有项目中都可使用：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx skills add tt-a1i/archify --agent trae-cn --global</span><br></pre></td></tr></table></figure>
-
-<h3 id="方式二：项目级安装"><a href="#方式二：项目级安装" class="headerlink" title="方式二：项目级安装"></a>方式二：项目级安装</h3><p>如果希望只在特定项目中使用，可以去掉 <code>--global</code> 参数，在项目根目录下执行：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx skills add tt-a1i/archify --agent trae-cn</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>注意</strong>：命令中的 <code>--agent trae-cn</code> 是<strong>必须的</strong>，用于告知安装工具目标环境是 Trae 国内版。如果误用为国际版参数 <code>trae</code>，Skill 将无法在 Trae CN 中正常加载。</p>
-</blockquote>
-<h3 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h3><p>安装完成后，可以通过以下方式确认 Skill 是否就绪：</p>
-<ul>
-<li><strong>检查目录</strong>：全局安装的 Skill 通常存放在 <code>C:\Users\你的用户名\.trae-cn\skills</code> 目录下。</li>
-<li><strong>对话验证</strong>：在 Trae CN 的 AI 对话框中直接输入测试指令，例如：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Use archify to draw: Browser -&gt; API Gateway -&gt; Auth Service -&gt; Redis -&gt; PostgreSQL</span><br></pre></td></tr></table></figure>
-
-<p>如果 Archify 正常工作，它会开始处理并生成图表。</p>
-<h2 id="如何使用-Archify"><a href="#如何使用-Archify" class="headerlink" title="如何使用 Archify"></a>如何使用 Archify</h2><p>Archify 的设计理念是“在对话中生成图表”，因此其使用方式主要围绕 AI 编程助手展开。同时，它也提供了命令行工具供高级用户或集成场景使用。</p>
-<h3 id="环境准备与安装"><a href="#环境准备与安装" class="headerlink" title="环境准备与安装"></a>环境准备与安装</h3><p>Archify 基于 Node.js，需要 <strong>Node.js 18 或更高版本</strong>。</p>
-<p>最便捷的安装方式是通过 <code>skills</code> 命令行工具进行全局安装：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">npx skills add tt<span class="literal">-a1i</span>/archify <span class="literal">-g</span></span><br></pre></td></tr></table></figure>
-
-<p>安装后，你可以运行诊断命令 <code>node bin/archify.mjs doctor</code> 来验证环境是否就绪。</p>
-<h3 id="基本用法（推荐）"><a href="#基本用法（推荐）" class="headerlink" title="基本用法（推荐）"></a>基本用法（推荐）</h3><p>安装完成后，你无需手动操作命令行。直接在支持 Skill 的 AI 编程助手（如 <strong>Cursor、Claude Code、Codex CLI、OpenCode、Raven</strong>）的对话中，用自然语言提出你的需求即可。</p>
-<p><strong>示例指令</strong>：</p>
-<ul>
-<li>“分析这个代码仓库，并生成一张高层运行时架构图。”</li>
-<li>“使用 archify 为这个仓库的运行时架构生成图表。”</li>
-<li>“展示一个带有 JWT 认证、Redis 缓存未命中和数据库回退的 API 请求时序图。”</li>
-</ul>
-<p>AI Agent 会理解你的意图，生成结构化的 JSON 数据，然后由 Archify 负责验证和渲染，最终输出一个可交互的 HTML 文件。</p>
-<h3 id="命令行用法（高级-集成）"><a href="#命令行用法（高级-集成）" class="headerlink" title="命令行用法（高级&#x2F;集成）"></a>命令行用法（高级&#x2F;集成）</h3><p>对于需要将 Archify 集成到 CI&#x2F;CD 管道或进行精确控制的用户，可以使用其 CLI 工具 <code>archify/bin/archify.mjs</code>。完整的命令包括 <code>validate</code> (验证)、<code>render</code> (渲染)、<code>deliver</code> (交付)、<code>compare</code> (对比) 等。</p>
-<p>一个典型的手动工作流如下：</p>
-<ol>
-<li><strong>选择图表类型</strong>：根据你要回答的问题，选择对应的图表类型（如 <code>architecture</code>）。</li>
-<li><strong>编写源文件</strong>：创建一个符合 Schema 的 JSON 源文件，建议从官方示例（如 <code>examples/web-app.architecture.json</code>）开始修改。</li>
-<li><strong>验证</strong>：使用 <code>validate</code> 命令在渲染前检查 JSON 文件的正确性。</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">node bin/archify.mjs validate architecture path/to/diagram.json <span class="literal">--quality</span> showcase <span class="literal">--json</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li><strong>交付</strong>：使用 <code>deliver</code> 命令生成最终的 HTML 成品，该命令会冻结版本并生成可信任的交付物。</li>
-</ol>
-<p>Archify 将架构图的创建从一项繁琐的“画图”任务，转变为一次自然的“对话”和“验证”过程，尤其适合需要频繁更新架构文档的开发团队。</p>
-<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><ul>
-<li><strong>Archify 国内主要用途</strong>：作为 AI 编程工具（Trae、Cursor 等）的 Skill，生成架构图；生成的图表也可嵌入飞书、钉钉文档。</li>
-<li><strong>Trae vs Trae CN</strong>：国际版与国内版，账号数据独立，模型和网络访问不同；Archify 在两个版本中均可通过 Skill 机制集成，但底层模型能力会影响生成质量。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>skill</tag>
-        <tag>AI</tag>
       </tags>
   </entry>
 </search>
