@@ -3,7 +3,7 @@
   <entry>
     <title>2、zabbix的构成、监控对象和监控框架</title>
     <url>/post/411850000000000.html</url>
-    <content><![CDATA[<h1 id="zabbix的构成"><a href="#zabbix的构成" class="headerlink" title="zabbix的构成"></a>zabbix的构成</h1><ul>
+    <content><![CDATA[<h1 id="1-zabbix的构成"><a href="#1-zabbix的构成" class="headerlink" title="1.zabbix的构成"></a>1.zabbix的构成</h1><ul>
 <li><strong>Server</strong><ul>
 <li><strong>zabbix server</strong> 是zabbix的核心组件，server内部<strong>存储了所有的配置信息、统计信息和操作信息</strong>。</li>
 <li>zabbix agent 会向zabbix server报告可用性、完整性及其他统计信息。</li>
@@ -28,7 +28,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="zabbix的监控对象"><a href="#zabbix的监控对象" class="headerlink" title="zabbix的监控对象"></a>zabbix的监控对象</h1><p>zabbix 支持监控各种系统平台，包括<code>Linux</code>和<code>Windows</code>等主流操作系统，也可以借助<strong><mark>SNMP</mark></strong>或者是<strong><mark>SSH</mark></strong><mark>协议</mark><strong>监控路由交换设备</strong>。</p>
+<h1 id="2-zabbix的监控对象"><a href="#2-zabbix的监控对象" class="headerlink" title="2.zabbix的监控对象"></a>2.zabbix的监控对象</h1><p>zabbix 支持监控各种系统平台，包括<code>Linux</code>和<code>Windows</code>等主流操作系统，也可以借助<strong><mark>SNMP</mark></strong>或者是<strong><mark>SSH</mark></strong><mark>协议</mark><strong>监控路由交换设备</strong>。</p>
 <p>zabbix 如果部署在服务器上，可以监控其CPU、内存、网络性能等硬件参数，也可以监控具体的服务或者应用程序、服务运行情况及性能。</p>
 <ul>
 <li><strong>硬件监控：</strong>Zabbix <strong>IPMI</strong> Interface ，通过<strong>IPMI接口</strong>进行监控，我们可以通过标准的IPMI硬件接口，监控被监控对象的物理特征，比如电压、温度、风扇状态、电源状态等。</li>
@@ -39,11 +39,11 @@
 <li><strong>MySQL数据库监控：percona-monitoring-plulgins</strong></li>
 <li><strong>URL监控：</strong>Zabbix Web 监控</li>
 </ul>
-<h1 id="监控框架"><a href="#监控框架" class="headerlink" title="监控框架"></a>监控框架</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在实际的工作环境中，根据网络环境和监控的规模不同，zabbix一共有三种框架：</p>
+<h1 id="3-监控框架"><a href="#3-监控框架" class="headerlink" title="3.监控框架"></a>3.监控框架</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在实际的工作环境中，根据网络环境和监控的规模不同，zabbix一共有三种框架：</p>
 <ul>
-<li><code>**server_client架构**</code></li>
-<li><code>**master_node_client架构**</code></li>
-<li><code>**server_proxy_client架构**</code></li>
+<li><strong>server_client架构</strong></li>
+<li><strong>master_node_client架构</strong></li>
+<li><strong>server_proxy_client架构</strong></li>
 </ul>
 <h3 id="server-client架构"><a href="#server-client架构" class="headerlink" title="server_client架构"></a><strong>server_client架构</strong></h3><p>zabbix最简单的架构，监控设备和被监控设备之间直接相连，zabbix_server 和 zabbix_client 之间直接进行数据交互。</p>
 <h3 id="zabbix-proxy-client架构"><a href="#zabbix-proxy-client架构" class="headerlink" title="zabbix_proxy_client架构"></a><strong>zabbix_proxy_client架构</strong></h3><p>proxy是连接 server 和 client 之间的桥梁，其本身不存放数据，只是将zabbix_agent端发来的数据暂存，然后再提交给server。</p>
@@ -52,8 +52,7 @@
 <h3 id="master-node-client架构"><a href="#master-node-client架构" class="headerlink" title="master_node_client架构"></a><strong>master_node_client架构</strong></h3><p>master_node_client架构是zabbix最复杂的架构。一般用于跨机房、跨网络、监控设备较多的大型网络架构。与server_proxy_client架构相比，master_node_client架构的主要区别在于node与proxy上.</p>
 <p>在master_node_client架构中，每个node可以理解为一个小的server端，在自己的配置文件和数据库，node下游可以直接连接client，也可以再次经过proxy代理后连接client。</p>
 <p><strong><mark>在master_node_client架构中，master设备宕机不会影响node节点的正常工作。</mark></strong></p>
-<h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><!-- 这是一张图片，ocr 内容为： -->
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/29434612/1740552707000-de0d9069-e82c-49d5-af7a-0e76b6042f17.png"></p>
+<h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/zabbix.png" alt="zabbix"></p>
 <h2 id="每个模块的工作职责："><a href="#每个模块的工作职责：" class="headerlink" title="每个模块的工作职责："></a>每个模块的工作职责：</h2><ol>
 <li><strong>Zabbix_Server</strong>：zabbix_server作为核心组件，用来获取agent存活情况和监控数据。所有的配置、统计、操作数据均通过server进行存取到database；</li>
 <li><strong>Zabbix_Database</strong>：用户存储所有的zabbix的配置信息、监控数据的数据库；</li>
@@ -127,62 +126,6 @@
       <tags>
         <tag>Git</tag>
         <tag>安装和配置</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Obsidian笔记插件-yuque-style</title>
-    <url>/post/4eeb1eb0.html</url>
-    <content><![CDATA[<h1 id="yuque-style-——-在-Obsidian-里过上语雀的日子"><a href="#yuque-style-——-在-Obsidian-里过上语雀的日子" class="headerlink" title="yuque-style —— 在 Obsidian 里过上语雀的日子"></a>yuque-style —— 在 Obsidian 里过上语雀的日子</h1><p>注意：</p>
-<ol>
-<li>插件需要使用语雀的Token</li>
-<li>插件地址：<a href="https://github.com/chenchimi/yuque-style">https://github.com/chenchimi/yuque-style</a></li>
-</ol>
-<p>它做两件事：</p>
-<h2 id="一、把语雀的体验搬进-Obsidian"><a href="#一、把语雀的体验搬进-Obsidian" class="headerlink" title="一、把语雀的体验搬进 Obsidian"></a>一、把语雀的体验搬进 Obsidian</h2><ul>
-<li><p><strong>语雀式排版</strong></p>
-<ul>
-<li>居中栏宽</li>
-<li>1.75 行高与段间距</li>
-<li>图片圆角、居中、限高</li>
-<li>宽表格横向滚动</li>
-</ul>
-</li>
-<li><p><strong>悬浮格式工具栏</strong></p>
-<ul>
-<li>选中文字即现</li>
-<li>表格里会自动切换成表格工具条</li>
-</ul>
-</li>
-<li><p><strong>块插入菜单</strong></p>
-<ul>
-<li>输入 <code>/</code> 唤起</li>
-<li>10 种 Callout 卡片</li>
-<li>折叠块</li>
-<li>目录块</li>
-<li>两栏对比</li>
-<li>13 种语言代码块</li>
-</ul>
-</li>
-<li><p><strong>标题层级自动编号</strong></p>
-</li>
-<li><p><strong>文档头显示</strong></p>
-<ul>
-<li>字数</li>
-<li>语雀真实的创建 &#x2F; 更新时间</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、把语雀的内容搬到本地"><a href="#二、把语雀的内容搬到本地" class="headerlink" title="二、把语雀的内容搬到本地"></a>二、把语雀的内容搬到本地</h2><ul>
-<li><strong>增量同步</strong>：按 <code>updated_at</code> 同步</li>
-<li><strong>目录还原</strong>：还原知识库目录树，并生成索引页</li>
-<li><strong>图片本地化</strong>：图片自动下载到本地，避免外链失效</li>
-<li><strong>双链转换</strong>：文档间引用转成 <code>[[双链]]</code>，跨知识库也认</li>
-<li><strong>中文属性</strong>：每篇文档写入标题 &#x2F; 来源 &#x2F; 语雀 ID &#x2F; 语雀创建时间 &#x2F; 语雀更新时间</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Obsidian</tag>
-        <tag>语雀</tag>
       </tags>
   </entry>
   <entry>
@@ -302,6 +245,62 @@
       </tags>
   </entry>
   <entry>
+    <title>Obsidian笔记插件-yuque-style</title>
+    <url>/post/4eeb1eb0.html</url>
+    <content><![CDATA[<h1 id="yuque-style-——-在-Obsidian-里过上语雀的日子"><a href="#yuque-style-——-在-Obsidian-里过上语雀的日子" class="headerlink" title="yuque-style —— 在 Obsidian 里过上语雀的日子"></a>yuque-style —— 在 Obsidian 里过上语雀的日子</h1><p>注意：</p>
+<ol>
+<li>插件需要使用语雀的Token</li>
+<li>插件地址：<a href="https://github.com/chenchimi/yuque-style">https://github.com/chenchimi/yuque-style</a></li>
+</ol>
+<p>它做两件事：</p>
+<h2 id="一、把语雀的体验搬进-Obsidian"><a href="#一、把语雀的体验搬进-Obsidian" class="headerlink" title="一、把语雀的体验搬进 Obsidian"></a>一、把语雀的体验搬进 Obsidian</h2><ul>
+<li><p><strong>语雀式排版</strong></p>
+<ul>
+<li>居中栏宽</li>
+<li>1.75 行高与段间距</li>
+<li>图片圆角、居中、限高</li>
+<li>宽表格横向滚动</li>
+</ul>
+</li>
+<li><p><strong>悬浮格式工具栏</strong></p>
+<ul>
+<li>选中文字即现</li>
+<li>表格里会自动切换成表格工具条</li>
+</ul>
+</li>
+<li><p><strong>块插入菜单</strong></p>
+<ul>
+<li>输入 <code>/</code> 唤起</li>
+<li>10 种 Callout 卡片</li>
+<li>折叠块</li>
+<li>目录块</li>
+<li>两栏对比</li>
+<li>13 种语言代码块</li>
+</ul>
+</li>
+<li><p><strong>标题层级自动编号</strong></p>
+</li>
+<li><p><strong>文档头显示</strong></p>
+<ul>
+<li>字数</li>
+<li>语雀真实的创建 &#x2F; 更新时间</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、把语雀的内容搬到本地"><a href="#二、把语雀的内容搬到本地" class="headerlink" title="二、把语雀的内容搬到本地"></a>二、把语雀的内容搬到本地</h2><ul>
+<li><strong>增量同步</strong>：按 <code>updated_at</code> 同步</li>
+<li><strong>目录还原</strong>：还原知识库目录树，并生成索引页</li>
+<li><strong>图片本地化</strong>：图片自动下载到本地，避免外链失效</li>
+<li><strong>双链转换</strong>：文档间引用转成 <code>[[双链]]</code>，跨知识库也认</li>
+<li><strong>中文属性</strong>：每篇文档写入标题 &#x2F; 来源 &#x2F; 语雀 ID &#x2F; 语雀创建时间 &#x2F; 语雀更新时间</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Obsidian</tag>
+        <tag>语雀</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>1、zabbix概述和官网</title>
     <url>/post/0.html</url>
     <content><![CDATA[<p>zabbix是一个监控软件，其可以监控各种网络参数，保证企业服务架构安全运营，同时支持灵活的告警机制，可以使得运维人员快速定位故障、解决问题。</p>
@@ -315,6 +314,228 @@
         <tag>监控</tag>
         <tag>运维</tag>
         <tag>zabbix</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>三、VLANIF</title>
+    <url>/post/0.html</url>
+    <content><![CDATA[<h3 id="一、-VLANIF-是什么？"><a href="#一、-VLANIF-是什么？" class="headerlink" title="一、 VLANIF 是什么？"></a>一、 VLANIF 是什么？</h3><p>VLANIF 接口是一种<strong>三层的逻辑接口</strong>（在思科等设备中常被称为 SVI 接口）。<strong><font style="color:#DF2A3F;">物理上它并不存在</font></strong>，而是通过软件基于 VLAN 创建的。</p>
+<p><strong>核心作用：</strong></p>
+<ol>
+<li><strong>实现 VLAN 间通信</strong>：VLAN 本质上是隔离二层广播域的，不同 VLAN 默认不能直接互通。VLANIF 接口在隔离的基础上，为这些孤立的广播域开了一个三层的“窗口”，使得数据包能够有控制地在不同 VLAN 间路由转发。</li>
+<li><strong>充当主机网关</strong>：每个 VLAN 对应一个 VLANIF 接口，为其配置 IP 地址后，该接口即可作为本 VLAN 内所有终端主机的默认网关，对需要跨网段的报文进行基于 IP 地址的三层转发。</li>
+</ol>
+<p><strong>关键特性：</strong></p>
+<ul>
+<li><strong>状态依赖</strong>：VLANIF 接口只有在对应的 VLAN 已经创建，且该 VLAN 内存在状态为 Up 的物理接口（或 Eth-Trunk 接口）时，VLANIF 接口状态才会变为 Up，从而进行三层转发。</li>
+<li><strong>高效性</strong>：与传统单臂路由相比，VLANIF 在三层交换机内部实现路由，无需额外路由器或线缆，配置更简单，转发性能更高，是现代网络中实现 VLAN 间路由的首选方案。</li>
+</ul>
+<h3 id="二、-如何配置-VLANIF？"><a href="#二、-如何配置-VLANIF？" class="headerlink" title="二、 如何配置 VLANIF？"></a>二、 如何配置 VLANIF？</h3><p>配置 VLANIF 接口遵循“先二层，后三层”的逻辑，标准流程主要分为以下几步：</p>
+<ol>
+<li><strong>创建 VLAN</strong>：在系统视图下创建所需的 VLAN。</li>
+<li><strong>配置物理接口加入 VLAN</strong>：将交换机连接终端的物理接口配置为 Access 模式（或 Trunk），并划入对应的 VLAN。</li>
+<li><strong>创建并配置 VLANIF 接口</strong>：为每个 VLAN 创建对应的 VLANIF 接口，并配置 IP 地址作为该网段的网关。</li>
+<li><strong>配置终端网络</strong>：为 PC 等终端配置 IP 地址，并将默认网关设置为对应 VLANIF 接口的 IP 地址。</li>
+</ol>
+<h4 id="💻-标准配置命令示例"><a href="#💻-标准配置命令示例" class="headerlink" title="💻 标准配置命令示例"></a>💻 标准配置命令示例</h4><p>以华为交换机为例，实现 VLAN 10 和 VLAN 20 互通的完整配置如下：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 批量创建 VLAN</span></span><br><span class="line">system<span class="literal">-view</span></span><br><span class="line">[<span class="type">Switch</span>] vlan batch <span class="number">10</span> <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 配置物理接口加入 VLAN (以Access模式为例)</span></span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port default vlan <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">2</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port default vlan <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] quit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 创建并配置 VLANIF 接口 (核心步骤)</span></span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] ip address <span class="number">192.168</span>.<span class="number">10.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] ip address <span class="number">192.168</span>.<span class="number">20.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] quit</span><br></pre></td></tr></table></figure>
+
+<p><em>(注：部分设备如华为CE系列或防火墙可能需要执行 <em><code>_commit_</code></em> 命令提交配置，防火墙还需将 VLANIF 接口加入安全区域。)</em></p>
+<p>配置完成后，交换机内部会自动产生直连路由，无需额外开启路由协议即可实现同设备上不同 VLAN 的三层互通。</p>
+<h3 id="三、-实际应用案例"><a href="#三、-实际应用案例" class="headerlink" title="三、 实际应用案例"></a>三、 实际应用案例</h3><h4 id="案例一：企业同设备不同部门互通"><a href="#案例一：企业同设备不同部门互通" class="headerlink" title="案例一：企业同设备不同部门互通"></a>案例一：企业同设备不同部门互通</h4><p>这是最常用的基础场景。假设企业网络中，研发部和市场部位于同一台三层交换机上，且属于不同网段：</p>
+<ul>
+<li><strong>研发部</strong>：VLAN 10，网段 192.168.10.0&#x2F;24</li>
+<li><strong>市场部</strong>：VLAN 20，网段 192.168.20.0&#x2F;24</li>
+</ul>
+<p>只需按上述配置在交换机上创建 VLANIF 10（IP: 192.168.10.1）和 VLANIF 20（IP: 192.168.20.1）。当研发部 PC 访问市场部服务器时，数据包先发送到本部门网关（VLANIF 10），交换机查询内部路由表后，通过 VLANIF 20 接口将数据包转发给服务器。整个过程由交换机的三层转发引擎高效完成。</p>
+<h4 id="案例二：作为网络出口网关与路由联动"><a href="#案例二：作为网络出口网关与路由联动" class="headerlink" title="案例二：作为网络出口网关与路由联动"></a>案例二：作为网络出口网关与路由联动</h4><p>在中小型网络中，三层交换机常作为用户的网关设备并连接出口路由器。此时，除了配置业务 VLANIF 接口外，还需要在交换机上配置静态路由或动态路由协议。</p>
+<p>例如，交换机通过某个物理接口或 VLANIF 接口连接到出口路由器（下一跳地址为 192.168.23.1），则需在系统视图下添加默认路由引导上网流量：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">[<span class="type">Switch</span>] ip route<span class="literal">-static</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">192.168</span>.<span class="number">23.1</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，VLANIF 接口也常用于部署 DHCP 服务器（基于接口分配地址）或配置 DHCP 中继（<code>ip helper-address</code>），以实现跨网段的 IP 地址分配。</p>
+<hr>
+<p><strong>排查小贴士</strong>：如果配置后发现不同 VLAN 无法 ping 通，请按顺序检查：1. PC 的默认网关是否指向了正确的 VLANIF 地址；2. 对应的 VLANIF 接口状态是否为 UP（可通过 <code>display ip interface brief</code> 查看）； 3. 物理接口是否正确划入了相应的 VLAN。</p>
+]]></content>
+      <tags>
+        <tag>VLAN</tag>
+        <tag>网络</tag>
+        <tag>交换机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一篇测试博客</title>
+    <url>/post/c3213e8.html</url>
+    <content><![CDATA[<p>这是一篇测试博客，用于测试 Hexo 是否正常运行。</p>
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com/hexo-img/AW-CO7.jpg" alt="测试图片"></p>
+]]></content>
+      <tags>
+        <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二、VLAN端口-Access Trunk Hybrid</title>
+    <url>/post/2356df63.html</url>
+    <content><![CDATA[<p><code>Access，Trunk，Hybrid</code><font style="color:rgb(51, 51, 51);"> 这三种端口类型，本质就是“VLAN流量的守门人”，核心区别只在于「</font><strong><font style="color:#DF2A3F;">允许哪些VLAN通过</font></strong><font style="color:rgb(51, 51, 51);">」和「</font><strong><font style="color:#DF2A3F;">对VLAN标签（Tag）的处理规则</font></strong><font style="color:rgb(51, 51, 51);">」。</font></p>
+<ol>
+<li><strong><font style="color:rgb(51, 51, 51);">VLAN标签（Tag）</font></strong><font style="color:rgb(51, 51, 51);">：相当于数据帧的“身份凭证”，交换机靠这个标签识别数据属于哪个VLAN，实现不同VLAN流量的隔离。但普通终端（PC、打印机）看不懂这个标签，必须让端口处理后才能正常通信。</font></li>
+<li><strong><font style="color:rgb(51, 51, 51);">PVID（端口默认VLAN）</font></strong><font style="color:rgb(51, 51, 51);">：每个端口都有默认VLAN（默认是VLAN 1），当端口收到不带Tag的数据时，会自动给数据打上PVID对应的标签，相当于给“无身份的数据”分配一个默认归属。</font></li>
+</ol>
+<h2 id="Access端口：终端的“专属单行道”"><a href="#Access端口：终端的“专属单行道”" class="headerlink" title="Access端口：终端的“专属单行道”"></a><strong><font style="color:rgb(0, 0, 0);">Access端口：终端的“专属单行道”</font></strong></h2><p><font style="color:rgb(51, 51, 51);">Access端口是最基础、最常用的端口类型，主打一个“专一”——</font><strong><font style="color:rgb(51, 51, 51);">只能属于一个VLAN</font></strong><font style="color:rgb(51, 51, 51);">，相当于</font><strong><font style="color:rgb(51, 51, 51);">给终端设备划了一条“专属单行道”</font></strong><font style="color:rgb(51, 51, 51);">，只允许自己所属VLAN的流量通行，多一点都不允许。</font></p>
+<h3 id="核心特性（必记）"><a href="#核心特性（必记）" class="headerlink" title="核心特性（必记）"></a><strong><font style="color:rgb(0, 0, 0);">核心特性（必记）</font></strong></h3><ul>
+<li><font style="color:rgb(51, 51, 51);">允许通过的VLAN：仅1个（仅允许VLAN ID与接口PVID相同的数据帧通过）；</font></li>
+<li><font style="color:rgb(51, 51, 51);">标签处理规则（关键）： </font><br><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1780983666346-37f59f96-8017-4823-ae16-16db54790f86.png"></li>
+</ul>
+<p><strong><font style="color:rgb(51, 51, 51);">Access接口接收数据帧</font></strong><font style="color:rgb(51, 51, 51);">：</font></p>
+<ul>
+<li><font style="color:rgb(51, 51, 51);">终端（PC、打印机等）发送的数据均为无Tag数据，端口接收后，会自动给该数据打上自身PVID（即绑定的VLAN）标签，标记数据归属后，供交换机内部识别和转发；若收到带Tag的数据（非自身绑定VLAN），会直接丢弃，不允许通行。</font></li>
+</ul>
+<p><strong><font style="color:rgb(51, 51, 51);">Access接口发送数据帧：</font></strong></p>
+<p><font style="color:rgb(51, 51, 51);">仅允许自身绑定的VLAN流量通过，转发前会</font><strong><font style="color:rgb(51, 51, 51);">强制剥离该VLAN的Tag标签</font></strong><font style="color:rgb(51, 51, 51);">，将无Tag数据发送给终端，确保终端能正常识别（终端无法解析Tag标签）。</font></p>
+<h3 id="实操配置（华为设备，极简版）"><a href="#实操配置（华为设备，极简版）" class="headerlink" title="实操配置（华为设备，极简版）"></a><strong><font style="color:rgb(0, 0, 0);">实操配置（华为设备，极简版）</font></strong></h3><p><font style="color:rgb(51, 51, 51);">假设将端口0&#x2F;0&#x2F;1设为Access模式，绑定VLAN 20（财务部终端接入）：</font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">system-view  # 进入系统视图</span><br><span class="line">interface <span class="title class_">GigabitEthernet</span> <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span>  # 进入目标端口</span><br><span class="line">port link-type access  # 配置端口为<span class="title class_">Access</span>模式</span><br><span class="line">port <span class="keyword">default</span> vlan <span class="number">10</span>  # 绑定<span class="variable constant_">VLAN</span> <span class="number">20</span>（同时设置<span class="variable constant_">PVID</span>为<span class="number">20</span>）</span><br></pre></td></tr></table></figure>
+
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a><strong><font style="color:rgb(0, 0, 0);">适用场景</font></strong></h3><p><font style="color:rgb(51, 51, 51);">所有直接连接终端设备的场景，也是网工配置中最常遇到的场景：</font></p>
+<ul>
+<li><font style="color:rgb(51, 51, 51);">办公区PC、笔记本接入交换机；</font></li>
+<li><font style="color:rgb(0, 82, 217);">企业服务器</font><font style="color:rgb(51, 51, 51);">、打印机（固定归属某一个业务VLAN）；</font></li>
+<li><font style="color:rgb(51, 51, 51);">监控摄像头、IP电话（仅需单VLAN通信）。</font></li>
+</ul>
+<h3 id="避坑提醒"><a href="#避坑提醒" class="headerlink" title="避坑提醒"></a><strong><font style="color:rgb(0, 0, 0);">避坑提醒</font></strong></h3><p><font style="color:rgb(51, 51, 51);">Access端口不能连接其他交换机，否则会导致VLAN隔离失效；如果终端无法获取IP，大概率是端口绑定的VLAN和</font><font style="color:rgb(0, 82, 217);">DHCP</font><font style="color:rgb(0, 82, 217);">服务器</font><font style="color:rgb(51, 51, 51);">所在VLAN不一致。</font></p>
+<h2 id="Trunk端口：设备间的“多VLAN高速通道”"><a href="#Trunk端口：设备间的“多VLAN高速通道”" class="headerlink" title="Trunk端口：设备间的“多VLAN高速通道”"></a><strong><font style="color:rgb(0, 0, 0);">Trunk端口：设备间的“多VLAN高速通道”</font></strong></h2><p><font style="color:rgb(51, 51, 51);">如果说Access是“终端专属道”，那Trunk就是“设备互联高速路”——</font><strong><font style="color:rgb(51, 51, 51);">专门用于交换机与交换机、交换机与</font><strong><strong><font style="color:rgb(0, 82, 217);">路由器</font></strong></strong><font style="color:rgb(51, 51, 51);">、</font><strong><strong><font style="color:rgb(0, 82, 217);">防火墙</font></strong></strong><font style="color:rgb(51, 51, 51);">等网络设备之间的互联</font></strong><font style="color:rgb(51, 51, 51);">，核心作用是</font><strong><font style="color:rgb(51, 51, 51);">透传多个VLAN的流量</font></strong><font style="color:rgb(51, 51, 51);">，让</font><strong><font style="color:#DF2A3F;">不同设备上的同名VLAN实现互通</font></strong><font style="color:rgb(51, 51, 51);">。</font></p>
+<h3 id="核心特性（必记）-1"><a href="#核心特性（必记）-1" class="headerlink" title="核心特性（必记）"></a><strong><font style="color:rgb(0, 0, 0);">核心特性（必记）</font></strong></h3><ul>
+<li><font style="color:rgb(51, 51, 51);">允许通过的VLAN：多个（需手动指定允许透传的VLAN列表，默认仅允许VLAN 1通过）；</font></li>
+<li><font style="color:rgb(51, 51, 51);">Trunk接口可以允许多个VLAN的帧带Tag通过，但只允许一个VLAN的帧从该类接口上发出时不带Tag（即剥除Tag）。 </font></li>
+<li><font style="color:rgb(51, 51, 51);">标签处理规则（关键）： </font></li>
+</ul>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1780983666143-9b31ebec-f6c0-4391-afdd-84f86f534b89.png"></p>
+<p><strong><font style="color:rgb(51, 51, 51);">Trunk接口接收数据帧：</font></strong><font style="color:rgb(51, 51, 51);"> </font></p>
+<ol>
+<li><font style="color:rgb(51, 51, 51);">收到带Tag的数据：若该VLAN在端口“允许透传列表”内，直接保留Tag标签转发至交换机内部；若不在列表内，直接丢弃</font></li>
+<li><font style="color:rgb(51, 51, 51);">收到无Tag的数据：自动打上端口的PVID（即Native VLAN）标签，标记后转发，若PVID对应的VLAN不在允许透传列表，同样丢弃。</font></li>
+</ol>
+<p><strong><font style="color:rgb(51, 51, 51);">Trunk接口发送数据帧：</font></strong><font style="color:rgb(51, 51, 51);"> </font></p>
+<ol>
+<li><font style="color:rgb(51, 51, 51);">仅剥离「Native VLAN（端口PVID）」的Tag标签，发送无Tag数据</font></li>
+<li><font style="color:rgb(51, 51, 51);">其他允许透传的VLAN，均</font><strong><font style="color:rgb(51, 51, 51);">保留原有Tag标签</font></strong><font style="color:rgb(51, 51, 51);">转发，确保跨设备（交换机、</font><font style="color:rgb(0, 82, 217);">路由</font><font style="color:rgb(51, 51, 51);">器）时，VLAN身份不丢失，设备间能准确识别数据归属。 </font></li>
+</ol>
+<h3 id="实操配置（华为设备，极简版）-1"><a href="#实操配置（华为设备，极简版）-1" class="headerlink" title="实操配置（华为设备，极简版）"></a><strong><font style="color:rgb(0, 0, 0);">实操配置（华为设备，极简版）</font></strong></h3><p><font style="color:rgb(51, 51, 51);">假设将端口0&#x2F;0&#x2F;1设为Trunk模式，允许VLAN 10-100透传，修改Native VLAN为10：</font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">system-view</span><br><span class="line">interface <span class="title class_">GigabitEthernet</span> <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span>  # 交换机互联常用端口</span><br><span class="line">port link-type trunk  # 配置为<span class="title class_">Trunk</span>模式</span><br><span class="line">port trunk allow-pass vlan <span class="number">10</span>-<span class="number">100</span>  # 允许<span class="variable constant_">VLAN</span> <span class="number">10</span>到<span class="number">100</span>透传</span><br><span class="line">port trunk pvid vlan <span class="number">10</span>  # 修改<span class="title class_">Native</span> <span class="variable constant_">VLAN</span>为<span class="number">10</span>（可选，推荐）</span><br></pre></td></tr></table></figure>
+
+<h3 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a><strong><font style="color:rgb(0, 0, 0);">适用场景</font></strong></h3><ul>
+<li><font style="color:rgb(51, 51, 51);">楼层交换机与核心交换机互联（需透传所有业务VLAN）；</font></li>
+<li><font style="color:rgb(51, 51, 51);">交换机连接路由器子接口（实现VLAN间路由，需透传多VLAN Tag）；</font></li>
+<li><font style="color:rgb(51, 51, 51);">交换机连接防火墙、</font><font style="color:rgb(0, 82, 217);">负载均衡器</font><font style="color:rgb(51, 51, 51);">（需统一转发多VLAN数据）。</font></li>
+</ul>
+<h3 id="避坑提醒-1"><a href="#避坑提醒-1" class="headerlink" title="避坑提醒"></a><strong><font style="color:rgb(0, 0, 0);">避坑提醒</font></strong></h3><ol>
+<li><font style="color:rgb(51, 51, 51);">两台交换机互联的Trunk端口，「允许透传的VLAN列表」和「Native VLAN」必须一致，否则会出现VLAN不通；</font></li>
+<li><font style="color:rgb(51, 51, 51);">不要将终端直接接到Trunk端口，终端无法识别带Tag的数据，会导致无法上网。</font></li>
+</ol>
+<h2 id="Hybrid端口：灵活多变的“万能适配口”"><a href="#Hybrid端口：灵活多变的“万能适配口”" class="headerlink" title="Hybrid端口：灵活多变的“万能适配口”"></a><strong><font style="color:rgb(0, 0, 0);">Hybrid端口：灵活多变的“万能适配口”</font></strong></h2><p><font style="color:rgb(51, 51, 51);">Hybrid端口是</font><strong><font style="color:rgb(51, 51, 51);">Access和Trunk的“升级版”</font></strong><font style="color:rgb(51, 51, 51);">，主打一个“灵活”——既能像Trunk一样透传多个VLAN，又能像Access一样剥离Tag标签，甚至可以自定义“哪些VLAN保留Tag、哪些VLAN剥离Tag”，完美解决复杂场景的配置需求。</font></p>
+<p><font style="color:rgb(51, 51, 51);">注意：Hybrid是华为、H3C等厂商支持的模式，Cisco设备无此概念，需用Trunk替代。</font></p>
+<h3 id="核心特性（必记）-2"><a href="#核心特性（必记）-2" class="headerlink" title="核心特性（必记）"></a><strong><font style="color:rgb(0, 0, 0);">核心特性（必记）</font></strong></h3><ul>
+<li><font style="color:rgb(51, 51, 51);">允许通过的VLAN：多个（允许从该类接口发出的帧根据需要配置某些VLAN的帧带Tag、某些VLAN的帧不带Tag。）；</font></li>
+<li><font style="color:rgb(51, 51, 51);">与Trunk最主要的区别就是，</font><strong><font style="color:rgb(51, 51, 51);">能够支持多个VLAN的数据帧，不带标签通过。</font></strong></li>
+<li><font style="color:rgb(51, 51, 51);">标签处理规则（关键）：</font></li>
+</ul>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1780983666405-3a14566c-055d-4569-b41b-2b565d87d471.png"></p>
+<p><strong><font style="color:rgb(51, 51, 51);">Hybrid接口接收数据帧：</font></strong><font style="color:rgb(51, 51, 51);">与Trunk端口接收逻辑一致</font></p>
+<ol>
+<li><font style="color:rgb(51, 51, 51);">带Tag数据：若该VLAN在端口配置列表内（无论tagged还是untagged），保留Tag标签转发；不在列表则丢弃</font></li>
+<li><font style="color:rgb(51, 51, 51);">无Tag数据：自动打上端口PVID标签，标记后转发，若PVID对应的VLAN不在配置列表，丢弃。</font></li>
+</ol>
+<p><strong><font style="color:rgb(51, 51, 51);">Hybrid接口发送数据帧：</font></strong></p>
+<p><font style="color:rgb(51, 51, 51);">核心优势在于灵活自定义——通过「tagged」和「untagged」命令区分处理：配置为untagged的VLAN，转发前剥离Tag标签（适配终端）；配置为tagged的VLAN，保留原有Tag标签（适配网络设备），可同时满足终端和设备的接入需求。</font></p>
+<h3 id="实操配置（华为设备，高频场景）"><a href="#实操配置（华为设备，高频场景）" class="headerlink" title="实操配置（华为设备，高频场景）"></a><strong><font style="color:rgb(0, 0, 0);">实操配置（华为设备，高频场景）</font></strong></h3><p><font style="color:rgb(51, 51, 51);">场景：交换机网口同时连接路由器（管理，VLAN 10，需剥离Tag）和业务（VLAN 20，需保留Tag），配置端口0&#x2F;0&#x2F;1为Hybrid模式：</font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">system-view</span><br><span class="line">interface <span class="title class_">GigabitEthernet</span> <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span>  # 目标端口</span><br><span class="line">port link-type hybrid  # 配置为<span class="title class_">Hybrid</span>模式</span><br><span class="line">port hybrid pvid vlan <span class="number">10</span>  # 管理<span class="variable constant_">VLAN</span>设为<span class="variable constant_">PVID</span>（无<span class="title class_">Tag</span>数据默认归为<span class="variable constant_">VLAN</span> <span class="number">10</span>）</span><br><span class="line">port hybrid untagged vlan <span class="number">10</span>  # <span class="variable constant_">VLAN</span> <span class="number">10</span>：剥离<span class="title class_">Tag</span>（管理可识别）</span><br><span class="line">port hybrid tagged vlan <span class="number">20</span>  # <span class="variable constant_">VLAN</span> <span class="number">20</span>：保留<span class="title class_">Tag</span>（业务需识别）</span><br></pre></td></tr></table></figure>
+
+<h3 id="适用场景-2"><a href="#适用场景-2" class="headerlink" title="适用场景"></a><strong><font style="color:rgb(0, 0, 0);">适用场景</font></strong></h3><p><font style="color:rgb(51, 51, 51);">适合“同一端口承载多类业务”的复杂场景，弥补Access和Trunk的灵活性不足：</font></p>
+<ul>
+<li><font style="color:rgb(51, 51, 51);">家庭&#x2F;酒店网口：同一接口同时接IPTV和路由器（宽带）；</font></li>
+<li><font style="color:rgb(51, 51, 51);">双业务服务器：服务器同时接入“业务VLAN”和“管理VLAN”，均需剥离Tag；</font></li>
+<li><font style="color:rgb(51, 51, 51);">工业场景：同一接口连接终端设备和下级交换机，需透传多VLAN且区分Tag处理。</font></li>
+</ul>
+<h3 id="避坑提醒-2"><a href="#避坑提醒-2" class="headerlink" title="避坑提醒"></a><strong><font style="color:rgb(0, 0, 0);">避坑提醒</font></strong></h3><p><font style="color:rgb(51, 51, 51);">Hybrid配置较复杂，重点区分「tagged」和「untagged」的用途，避免混淆导致业务不通；跨厂商互联时，需将Hybrid端口配置为Tagged模式，对应其他厂商的Trunk模式。</font></p>
+<h2 id="接口转发数据帧对比"><a href="#接口转发数据帧对比" class="headerlink" title="接口转发数据帧对比"></a><strong><font style="color:rgb(51, 51, 51);">接口转发数据帧对比</font></strong></h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1780986832127-d68720c3-539c-4ec5-a30a-44069cf2c0a6.png"></p>
+<h2 id="关键对比：一张表分清三种端口（收藏备用）"><a href="#关键对比：一张表分清三种端口（收藏备用）" class="headerlink" title="关键对比：一张表分清三种端口（收藏备用）"></a><strong><font style="color:rgb(0, 0, 0);">关键对比：一张表分清三种端口（收藏备用）</font></strong></h2><table>
+<thead>
+<tr>
+<th align="left"><font style="color:rgb(103, 116, 137);">对比维度</font></th>
+<th align="left"><font style="color:rgb(103, 116, 137);">Access端口</font></th>
+<th align="left"><font style="color:rgb(103, 116, 137);">Trunk端口</font></th>
+<th align="left"><font style="color:rgb(103, 116, 137);">Hybrid端口</font></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><font style="color:rgb(51, 51, 51);">核心用途</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">终端单VLAN接入</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">设备间多VLAN透传</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">混合连接终端&#x2F;设备，自定义转发</font></td>
+</tr>
+<tr>
+<td align="left"><font style="color:rgb(51, 51, 51);">允许VLAN数量</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">仅1个（固定绑定）</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">多个（需手动指定）</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">多个（分Tag&#x2F;Untag列表）</font></td>
+</tr>
+<tr>
+<td align="left"><font style="color:rgb(51, 51, 51);">标签处理</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">发送时统一剥离Tag</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">仅剥离Native VLAN的Tag，其他保留</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">自定义保留&#x2F;剥离Tag的VLAN</font></td>
+</tr>
+<tr>
+<td align="left"><font style="color:rgb(51, 51, 51);">典型连接对象</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">PC、打印机、摄像头</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">交换机、路由器、防火墙</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">IPTV+路由器、双业务服务器</font></td>
+</tr>
+<tr>
+<td align="left"><font style="color:rgb(51, 51, 51);">配置复杂度</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">最简单（2-3条命令）</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">中等</font></td>
+<td align="left"><font style="color:rgb(51, 51, 51);">较高（需自定义规则）</font></td>
+</tr>
+</tbody></table>
+<h2 id="补充：三种端口模式的等价配置关系（实操重点）"><a href="#补充：三种端口模式的等价配置关系（实操重点）" class="headerlink" title="补充：三种端口模式的等价配置关系（实操重点）"></a><strong><font style="color:rgb(0, 0, 0);">补充：三种端口模式的等价配置关系（实操重点）</font></strong></h2><p><font style="color:rgb(51, 51, 51);">在单VLAN终端接入场景中，Access、Trunk、Hybrid三种端口模式可通过不同配置实现完全相同的功能，三者等价关系如下（以绑定VLAN 10为例，华为设备）：</font></p>
+<ul>
+<li><strong><font style="color:rgb(51, 51, 51);">Access模式配置</font></strong><font style="color:rgb(51, 51, 51);">： </font><ul>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port link-type access &lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port default vlan 10&lt;/font&gt;</code></li>
+</ul>
+</li>
+<li><strong><font style="color:rgb(51, 51, 51);">Trunk模式等价配置</font></strong><font style="color:rgb(51, 51, 51);">： </font><ul>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port link-type trunk &lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port trunk allow-pass vlan 10 &lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port trunk pvid vlan 10&lt;/font&gt;</code></li>
+</ul>
+</li>
+<li><strong><font style="color:rgb(51, 51, 51);">Hybrid模式等价配置</font></strong><font style="color:rgb(51, 51, 51);">：</font><ul>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port link-type hybrid &lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port hybrid pvid vlan 10 &lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port hybrid untagged vlan 10&lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;undo port hybrid vlan 1&lt;/font&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p><font style="color:rgb(51, 51, 51);">说明：以上配置均实现“端口仅允许VLAN 10流量通行，发送数据时剥离Tag标签，接收无Tag数据时打上VLAN 10标签”，适配终端接入场景。实操中可根据端口模式需求灵活选择，但Access模式配置最简单，优先推荐用于终端接入。</font></p>
+<h2 id="总结：怎么选？"><a href="#总结：怎么选？" class="headerlink" title="总结：怎么选？"></a><strong><font style="color:rgb(0, 0, 0);">总结：怎么选？</font></strong></h2><ol>
+<li><font style="color:rgb(51, 51, 51);">接终端（PC、打印机），仅需单VLAN → 选Access；</font></li>
+<li><font style="color:rgb(51, 51, 51);">接设备（交换机、路由器），需透传多VLAN → 选Trunk；</font></li>
+<li><font style="color:rgb(51, 51, 51);">同一端口多业务（如管理+业务），需灵活处理Tag → 选Hybrid。</font></li>
+</ol>
+<p><font style="color:rgb(51, 51, 51);">其实三种端口的核心逻辑很简单：Access求“专一”，Trunk求“高效”，Hybrid求“灵活”。掌握它们的标签处理规则和适用场景，配置时就不会再踩坑啦！</font></p>
+<p><font style="color:rgb(51, 51, 51);">最后提醒：配置完成后，可通过「display vlan all」命令查看VLAN和端口绑定情况，快速排查问题～</font></p>
+<h2 id="本系列文章"><a href="#本系列文章" class="headerlink" title="本系列文章"></a>本系列文章</h2><ul class="series-items"><li><a href="/post/fc7028a0.html" title="一、VLAN 基础知识">一、VLAN 基础知识</a></li><li><a href="/post/2356df63.html" title="二、VLAN端口-Access Trunk Hybrid">二、VLAN端口-Access Trunk Hybrid</a></li></ul>
+
+]]></content>
+      <tags>
+        <tag>VLAN</tag>
+        <tag>网络</tag>
+        <tag>交换机</tag>
+        <tag>数通</tag>
       </tags>
   </entry>
   <entry>
@@ -650,231 +871,9 @@
 ]]></content>
       <tags>
         <tag>VLAN</tag>
+        <tag>网络</tag>
         <tag>交换机</tag>
         <tag>数通</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>三、VLANIF</title>
-    <url>/post/0.html</url>
-    <content><![CDATA[<h3 id="一、-VLANIF-是什么？"><a href="#一、-VLANIF-是什么？" class="headerlink" title="一、 VLANIF 是什么？"></a>一、 VLANIF 是什么？</h3><p>VLANIF 接口是一种<strong>三层的逻辑接口</strong>（在思科等设备中常被称为 SVI 接口）。<strong><font style="color:#DF2A3F;">物理上它并不存在</font></strong>，而是通过软件基于 VLAN 创建的。</p>
-<p><strong>核心作用：</strong></p>
-<ol>
-<li><strong>实现 VLAN 间通信</strong>：VLAN 本质上是隔离二层广播域的，不同 VLAN 默认不能直接互通。VLANIF 接口在隔离的基础上，为这些孤立的广播域开了一个三层的“窗口”，使得数据包能够有控制地在不同 VLAN 间路由转发。</li>
-<li><strong>充当主机网关</strong>：每个 VLAN 对应一个 VLANIF 接口，为其配置 IP 地址后，该接口即可作为本 VLAN 内所有终端主机的默认网关，对需要跨网段的报文进行基于 IP 地址的三层转发。</li>
-</ol>
-<p><strong>关键特性：</strong></p>
-<ul>
-<li><strong>状态依赖</strong>：VLANIF 接口只有在对应的 VLAN 已经创建，且该 VLAN 内存在状态为 Up 的物理接口（或 Eth-Trunk 接口）时，VLANIF 接口状态才会变为 Up，从而进行三层转发。</li>
-<li><strong>高效性</strong>：与传统单臂路由相比，VLANIF 在三层交换机内部实现路由，无需额外路由器或线缆，配置更简单，转发性能更高，是现代网络中实现 VLAN 间路由的首选方案。</li>
-</ul>
-<h3 id="二、-如何配置-VLANIF？"><a href="#二、-如何配置-VLANIF？" class="headerlink" title="二、 如何配置 VLANIF？"></a>二、 如何配置 VLANIF？</h3><p>配置 VLANIF 接口遵循“先二层，后三层”的逻辑，标准流程主要分为以下几步：</p>
-<ol>
-<li><strong>创建 VLAN</strong>：在系统视图下创建所需的 VLAN。</li>
-<li><strong>配置物理接口加入 VLAN</strong>：将交换机连接终端的物理接口配置为 Access 模式（或 Trunk），并划入对应的 VLAN。</li>
-<li><strong>创建并配置 VLANIF 接口</strong>：为每个 VLAN 创建对应的 VLANIF 接口，并配置 IP 地址作为该网段的网关。</li>
-<li><strong>配置终端网络</strong>：为 PC 等终端配置 IP 地址，并将默认网关设置为对应 VLANIF 接口的 IP 地址。</li>
-</ol>
-<h4 id="💻-标准配置命令示例"><a href="#💻-标准配置命令示例" class="headerlink" title="💻 标准配置命令示例"></a>💻 标准配置命令示例</h4><p>以华为交换机为例，实现 VLAN 10 和 VLAN 20 互通的完整配置如下：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 批量创建 VLAN</span></span><br><span class="line">system<span class="literal">-view</span></span><br><span class="line">[<span class="type">Switch</span>] vlan batch <span class="number">10</span> <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 配置物理接口加入 VLAN (以Access模式为例)</span></span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] port default vlan <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">1</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface gigabitethernet <span class="number">0</span>/<span class="number">0</span>/<span class="number">2</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port link<span class="literal">-type</span> access</span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] port default vlan <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-GigabitEthernet0</span>/<span class="number">0</span>/<span class="number">2</span>] quit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 创建并配置 VLANIF 接口 (核心步骤)</span></span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">10</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] ip address <span class="number">192.168</span>.<span class="number">10.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif10</span>] quit</span><br><span class="line">[<span class="type">Switch</span>] interface vlanif <span class="number">20</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] ip address <span class="number">192.168</span>.<span class="number">20.1</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line">[<span class="built_in">Switch-Vlanif20</span>] quit</span><br></pre></td></tr></table></figure>
-
-<p><em>(注：部分设备如华为CE系列或防火墙可能需要执行 <em><code>_commit_</code></em> 命令提交配置，防火墙还需将 VLANIF 接口加入安全区域。)</em></p>
-<p>配置完成后，交换机内部会自动产生直连路由，无需额外开启路由协议即可实现同设备上不同 VLAN 的三层互通。</p>
-<h3 id="三、-实际应用案例"><a href="#三、-实际应用案例" class="headerlink" title="三、 实际应用案例"></a>三、 实际应用案例</h3><h4 id="案例一：企业同设备不同部门互通"><a href="#案例一：企业同设备不同部门互通" class="headerlink" title="案例一：企业同设备不同部门互通"></a>案例一：企业同设备不同部门互通</h4><p>这是最常用的基础场景。假设企业网络中，研发部和市场部位于同一台三层交换机上，且属于不同网段：</p>
-<ul>
-<li><strong>研发部</strong>：VLAN 10，网段 192.168.10.0&#x2F;24</li>
-<li><strong>市场部</strong>：VLAN 20，网段 192.168.20.0&#x2F;24</li>
-</ul>
-<p>只需按上述配置在交换机上创建 VLANIF 10（IP: 192.168.10.1）和 VLANIF 20（IP: 192.168.20.1）。当研发部 PC 访问市场部服务器时，数据包先发送到本部门网关（VLANIF 10），交换机查询内部路由表后，通过 VLANIF 20 接口将数据包转发给服务器。整个过程由交换机的三层转发引擎高效完成。</p>
-<h4 id="案例二：作为网络出口网关与路由联动"><a href="#案例二：作为网络出口网关与路由联动" class="headerlink" title="案例二：作为网络出口网关与路由联动"></a>案例二：作为网络出口网关与路由联动</h4><p>在中小型网络中，三层交换机常作为用户的网关设备并连接出口路由器。此时，除了配置业务 VLANIF 接口外，还需要在交换机上配置静态路由或动态路由协议。</p>
-<p>例如，交换机通过某个物理接口或 VLANIF 接口连接到出口路由器（下一跳地址为 192.168.23.1），则需在系统视图下添加默认路由引导上网流量：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">[<span class="type">Switch</span>] ip route<span class="literal">-static</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">0.0</span>.<span class="number">0.0</span> <span class="number">192.168</span>.<span class="number">23.1</span></span><br></pre></td></tr></table></figure>
-
-<p>此外，VLANIF 接口也常用于部署 DHCP 服务器（基于接口分配地址）或配置 DHCP 中继（<code>ip helper-address</code>），以实现跨网段的 IP 地址分配。</p>
-<hr>
-<p><strong>排查小贴士</strong>：如果配置后发现不同 VLAN 无法 ping 通，请按顺序检查：1. PC 的默认网关是否指向了正确的 VLANIF 地址；2. 对应的 VLANIF 接口状态是否为 UP（可通过 <code>display ip interface brief</code> 查看）； 3. 物理接口是否正确划入了相应的 VLAN。</p>
-]]></content>
-      <tags>
-        <tag>VLAN</tag>
-        <tag>交换机</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二、VLAN端口-Access Trunk Hybrid</title>
-    <url>/post/2356df63.html</url>
-    <content><![CDATA[<p><code>Access，Trunk，Hybrid</code><font style="color:rgb(51, 51, 51);"> 这三种端口类型，本质就是“VLAN流量的守门人”，核心区别只在于「</font><strong><font style="color:#DF2A3F;">允许哪些VLAN通过</font></strong><font style="color:rgb(51, 51, 51);">」和「</font><strong><font style="color:#DF2A3F;">对VLAN标签（Tag）的处理规则</font></strong><font style="color:rgb(51, 51, 51);">」。</font></p>
-<ol>
-<li><strong><font style="color:rgb(51, 51, 51);">VLAN标签（Tag）</font></strong><font style="color:rgb(51, 51, 51);">：相当于数据帧的“身份凭证”，交换机靠这个标签识别数据属于哪个VLAN，实现不同VLAN流量的隔离。但普通终端（PC、打印机）看不懂这个标签，必须让端口处理后才能正常通信。</font></li>
-<li><strong><font style="color:rgb(51, 51, 51);">PVID（端口默认VLAN）</font></strong><font style="color:rgb(51, 51, 51);">：每个端口都有默认VLAN（默认是VLAN 1），当端口收到不带Tag的数据时，会自动给数据打上PVID对应的标签，相当于给“无身份的数据”分配一个默认归属。</font></li>
-</ol>
-<h2 id="Access端口：终端的“专属单行道”"><a href="#Access端口：终端的“专属单行道”" class="headerlink" title="Access端口：终端的“专属单行道”"></a><strong><font style="color:rgb(0, 0, 0);">Access端口：终端的“专属单行道”</font></strong></h2><p><font style="color:rgb(51, 51, 51);">Access端口是最基础、最常用的端口类型，主打一个“专一”——</font><strong><font style="color:rgb(51, 51, 51);">只能属于一个VLAN</font></strong><font style="color:rgb(51, 51, 51);">，相当于</font><strong><font style="color:rgb(51, 51, 51);">给终端设备划了一条“专属单行道”</font></strong><font style="color:rgb(51, 51, 51);">，只允许自己所属VLAN的流量通行，多一点都不允许。</font></p>
-<h3 id="核心特性（必记）"><a href="#核心特性（必记）" class="headerlink" title="核心特性（必记）"></a><strong><font style="color:rgb(0, 0, 0);">核心特性（必记）</font></strong></h3><ul>
-<li><font style="color:rgb(51, 51, 51);">允许通过的VLAN：仅1个（仅允许VLAN ID与接口PVID相同的数据帧通过）；</font></li>
-<li><font style="color:rgb(51, 51, 51);">标签处理规则（关键）： </font><br><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1780983666346-37f59f96-8017-4823-ae16-16db54790f86.png"></li>
-</ul>
-<p><strong><font style="color:rgb(51, 51, 51);">Access接口接收数据帧</font></strong><font style="color:rgb(51, 51, 51);">：</font></p>
-<ul>
-<li><font style="color:rgb(51, 51, 51);">终端（PC、打印机等）发送的数据均为无Tag数据，端口接收后，会自动给该数据打上自身PVID（即绑定的VLAN）标签，标记数据归属后，供交换机内部识别和转发；若收到带Tag的数据（非自身绑定VLAN），会直接丢弃，不允许通行。</font></li>
-</ul>
-<p><strong><font style="color:rgb(51, 51, 51);">Access接口发送数据帧：</font></strong></p>
-<p><font style="color:rgb(51, 51, 51);">仅允许自身绑定的VLAN流量通过，转发前会</font><strong><font style="color:rgb(51, 51, 51);">强制剥离该VLAN的Tag标签</font></strong><font style="color:rgb(51, 51, 51);">，将无Tag数据发送给终端，确保终端能正常识别（终端无法解析Tag标签）。</font></p>
-<h3 id="实操配置（华为设备，极简版）"><a href="#实操配置（华为设备，极简版）" class="headerlink" title="实操配置（华为设备，极简版）"></a><strong><font style="color:rgb(0, 0, 0);">实操配置（华为设备，极简版）</font></strong></h3><p><font style="color:rgb(51, 51, 51);">假设将端口0&#x2F;0&#x2F;1设为Access模式，绑定VLAN 20（财务部终端接入）：</font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">system-view  # 进入系统视图</span><br><span class="line">interface <span class="title class_">GigabitEthernet</span> <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span>  # 进入目标端口</span><br><span class="line">port link-type access  # 配置端口为<span class="title class_">Access</span>模式</span><br><span class="line">port <span class="keyword">default</span> vlan <span class="number">10</span>  # 绑定<span class="variable constant_">VLAN</span> <span class="number">20</span>（同时设置<span class="variable constant_">PVID</span>为<span class="number">20</span>）</span><br></pre></td></tr></table></figure>
-
-<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a><strong><font style="color:rgb(0, 0, 0);">适用场景</font></strong></h3><p><font style="color:rgb(51, 51, 51);">所有直接连接终端设备的场景，也是网工配置中最常遇到的场景：</font></p>
-<ul>
-<li><font style="color:rgb(51, 51, 51);">办公区PC、笔记本接入交换机；</font></li>
-<li><font style="color:rgb(0, 82, 217);">企业服务器</font><font style="color:rgb(51, 51, 51);">、打印机（固定归属某一个业务VLAN）；</font></li>
-<li><font style="color:rgb(51, 51, 51);">监控摄像头、IP电话（仅需单VLAN通信）。</font></li>
-</ul>
-<h3 id="避坑提醒"><a href="#避坑提醒" class="headerlink" title="避坑提醒"></a><strong><font style="color:rgb(0, 0, 0);">避坑提醒</font></strong></h3><p><font style="color:rgb(51, 51, 51);">Access端口不能连接其他交换机，否则会导致VLAN隔离失效；如果终端无法获取IP，大概率是端口绑定的VLAN和</font><font style="color:rgb(0, 82, 217);">DHCP</font><font style="color:rgb(0, 82, 217);">服务器</font><font style="color:rgb(51, 51, 51);">所在VLAN不一致。</font></p>
-<h2 id="Trunk端口：设备间的“多VLAN高速通道”"><a href="#Trunk端口：设备间的“多VLAN高速通道”" class="headerlink" title="Trunk端口：设备间的“多VLAN高速通道”"></a><strong><font style="color:rgb(0, 0, 0);">Trunk端口：设备间的“多VLAN高速通道”</font></strong></h2><p><font style="color:rgb(51, 51, 51);">如果说Access是“终端专属道”，那Trunk就是“设备互联高速路”——</font><strong><font style="color:rgb(51, 51, 51);">专门用于交换机与交换机、交换机与</font><strong><strong><font style="color:rgb(0, 82, 217);">路由器</font></strong></strong><font style="color:rgb(51, 51, 51);">、</font><strong><strong><font style="color:rgb(0, 82, 217);">防火墙</font></strong></strong><font style="color:rgb(51, 51, 51);">等网络设备之间的互联</font></strong><font style="color:rgb(51, 51, 51);">，核心作用是</font><strong><font style="color:rgb(51, 51, 51);">透传多个VLAN的流量</font></strong><font style="color:rgb(51, 51, 51);">，让</font><strong><font style="color:#DF2A3F;">不同设备上的同名VLAN实现互通</font></strong><font style="color:rgb(51, 51, 51);">。</font></p>
-<h3 id="核心特性（必记）-1"><a href="#核心特性（必记）-1" class="headerlink" title="核心特性（必记）"></a><strong><font style="color:rgb(0, 0, 0);">核心特性（必记）</font></strong></h3><ul>
-<li><font style="color:rgb(51, 51, 51);">允许通过的VLAN：多个（需手动指定允许透传的VLAN列表，默认仅允许VLAN 1通过）；</font></li>
-<li><font style="color:rgb(51, 51, 51);">Trunk接口可以允许多个VLAN的帧带Tag通过，但只允许一个VLAN的帧从该类接口上发出时不带Tag（即剥除Tag）。 </font></li>
-<li><font style="color:rgb(51, 51, 51);">标签处理规则（关键）： </font></li>
-</ul>
-<!-- 这是一张图片，ocr 内容为： -->
-<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1780983666143-9b31ebec-f6c0-4391-afdd-84f86f534b89.png"></p>
-<p><strong><font style="color:rgb(51, 51, 51);">Trunk接口接收数据帧：</font></strong><font style="color:rgb(51, 51, 51);"> </font></p>
-<ol>
-<li><font style="color:rgb(51, 51, 51);">收到带Tag的数据：若该VLAN在端口“允许透传列表”内，直接保留Tag标签转发至交换机内部；若不在列表内，直接丢弃</font></li>
-<li><font style="color:rgb(51, 51, 51);">收到无Tag的数据：自动打上端口的PVID（即Native VLAN）标签，标记后转发，若PVID对应的VLAN不在允许透传列表，同样丢弃。</font></li>
-</ol>
-<p><strong><font style="color:rgb(51, 51, 51);">Trunk接口发送数据帧：</font></strong><font style="color:rgb(51, 51, 51);"> </font></p>
-<ol>
-<li><font style="color:rgb(51, 51, 51);">仅剥离「Native VLAN（端口PVID）」的Tag标签，发送无Tag数据</font></li>
-<li><font style="color:rgb(51, 51, 51);">其他允许透传的VLAN，均</font><strong><font style="color:rgb(51, 51, 51);">保留原有Tag标签</font></strong><font style="color:rgb(51, 51, 51);">转发，确保跨设备（交换机、</font><font style="color:rgb(0, 82, 217);">路由</font><font style="color:rgb(51, 51, 51);">器）时，VLAN身份不丢失，设备间能准确识别数据归属。 </font></li>
-</ol>
-<h3 id="实操配置（华为设备，极简版）-1"><a href="#实操配置（华为设备，极简版）-1" class="headerlink" title="实操配置（华为设备，极简版）"></a><strong><font style="color:rgb(0, 0, 0);">实操配置（华为设备，极简版）</font></strong></h3><p><font style="color:rgb(51, 51, 51);">假设将端口0&#x2F;0&#x2F;1设为Trunk模式，允许VLAN 10-100透传，修改Native VLAN为10：</font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">system-view</span><br><span class="line">interface <span class="title class_">GigabitEthernet</span> <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span>  # 交换机互联常用端口</span><br><span class="line">port link-type trunk  # 配置为<span class="title class_">Trunk</span>模式</span><br><span class="line">port trunk allow-pass vlan <span class="number">10</span>-<span class="number">100</span>  # 允许<span class="variable constant_">VLAN</span> <span class="number">10</span>到<span class="number">100</span>透传</span><br><span class="line">port trunk pvid vlan <span class="number">10</span>  # 修改<span class="title class_">Native</span> <span class="variable constant_">VLAN</span>为<span class="number">10</span>（可选，推荐）</span><br></pre></td></tr></table></figure>
-
-<h3 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a><strong><font style="color:rgb(0, 0, 0);">适用场景</font></strong></h3><ul>
-<li><font style="color:rgb(51, 51, 51);">楼层交换机与核心交换机互联（需透传所有业务VLAN）；</font></li>
-<li><font style="color:rgb(51, 51, 51);">交换机连接路由器子接口（实现VLAN间路由，需透传多VLAN Tag）；</font></li>
-<li><font style="color:rgb(51, 51, 51);">交换机连接防火墙、</font><font style="color:rgb(0, 82, 217);">负载均衡器</font><font style="color:rgb(51, 51, 51);">（需统一转发多VLAN数据）。</font></li>
-</ul>
-<h3 id="避坑提醒-1"><a href="#避坑提醒-1" class="headerlink" title="避坑提醒"></a><strong><font style="color:rgb(0, 0, 0);">避坑提醒</font></strong></h3><ol>
-<li><font style="color:rgb(51, 51, 51);">两台交换机互联的Trunk端口，「允许透传的VLAN列表」和「Native VLAN」必须一致，否则会出现VLAN不通；</font></li>
-<li><font style="color:rgb(51, 51, 51);">不要将终端直接接到Trunk端口，终端无法识别带Tag的数据，会导致无法上网。</font></li>
-</ol>
-<h2 id="Hybrid端口：灵活多变的“万能适配口”"><a href="#Hybrid端口：灵活多变的“万能适配口”" class="headerlink" title="Hybrid端口：灵活多变的“万能适配口”"></a><strong><font style="color:rgb(0, 0, 0);">Hybrid端口：灵活多变的“万能适配口”</font></strong></h2><p><font style="color:rgb(51, 51, 51);">Hybrid端口是</font><strong><font style="color:rgb(51, 51, 51);">Access和Trunk的“升级版”</font></strong><font style="color:rgb(51, 51, 51);">，主打一个“灵活”——既能像Trunk一样透传多个VLAN，又能像Access一样剥离Tag标签，甚至可以自定义“哪些VLAN保留Tag、哪些VLAN剥离Tag”，完美解决复杂场景的配置需求。</font></p>
-<p><font style="color:rgb(51, 51, 51);">注意：Hybrid是华为、H3C等厂商支持的模式，Cisco设备无此概念，需用Trunk替代。</font></p>
-<h3 id="核心特性（必记）-2"><a href="#核心特性（必记）-2" class="headerlink" title="核心特性（必记）"></a><strong><font style="color:rgb(0, 0, 0);">核心特性（必记）</font></strong></h3><ul>
-<li><font style="color:rgb(51, 51, 51);">允许通过的VLAN：多个（允许从该类接口发出的帧根据需要配置某些VLAN的帧带Tag、某些VLAN的帧不带Tag。）；</font></li>
-<li><font style="color:rgb(51, 51, 51);">与Trunk最主要的区别就是，</font><strong><font style="color:rgb(51, 51, 51);">能够支持多个VLAN的数据帧，不带标签通过。</font></strong></li>
-<li><font style="color:rgb(51, 51, 51);">标签处理规则（关键）：</font></li>
-</ul>
-<!-- 这是一张图片，ocr 内容为： -->
-<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1780983666405-3a14566c-055d-4569-b41b-2b565d87d471.png"></p>
-<p><strong><font style="color:rgb(51, 51, 51);">Hybrid接口接收数据帧：</font></strong><font style="color:rgb(51, 51, 51);">与Trunk端口接收逻辑一致</font></p>
-<ol>
-<li><font style="color:rgb(51, 51, 51);">带Tag数据：若该VLAN在端口配置列表内（无论tagged还是untagged），保留Tag标签转发；不在列表则丢弃</font></li>
-<li><font style="color:rgb(51, 51, 51);">无Tag数据：自动打上端口PVID标签，标记后转发，若PVID对应的VLAN不在配置列表，丢弃。</font></li>
-</ol>
-<p><strong><font style="color:rgb(51, 51, 51);">Hybrid接口发送数据帧：</font></strong></p>
-<p><font style="color:rgb(51, 51, 51);">核心优势在于灵活自定义——通过「tagged」和「untagged」命令区分处理：配置为untagged的VLAN，转发前剥离Tag标签（适配终端）；配置为tagged的VLAN，保留原有Tag标签（适配网络设备），可同时满足终端和设备的接入需求。</font></p>
-<h3 id="实操配置（华为设备，高频场景）"><a href="#实操配置（华为设备，高频场景）" class="headerlink" title="实操配置（华为设备，高频场景）"></a><strong><font style="color:rgb(0, 0, 0);">实操配置（华为设备，高频场景）</font></strong></h3><p><font style="color:rgb(51, 51, 51);">场景：交换机网口同时连接路由器（管理，VLAN 10，需剥离Tag）和业务（VLAN 20，需保留Tag），配置端口0&#x2F;0&#x2F;1为Hybrid模式：</font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">system-view</span><br><span class="line">interface <span class="title class_">GigabitEthernet</span> <span class="number">0</span>/<span class="number">0</span>/<span class="number">1</span>  # 目标端口</span><br><span class="line">port link-type hybrid  # 配置为<span class="title class_">Hybrid</span>模式</span><br><span class="line">port hybrid pvid vlan <span class="number">10</span>  # 管理<span class="variable constant_">VLAN</span>设为<span class="variable constant_">PVID</span>（无<span class="title class_">Tag</span>数据默认归为<span class="variable constant_">VLAN</span> <span class="number">10</span>）</span><br><span class="line">port hybrid untagged vlan <span class="number">10</span>  # <span class="variable constant_">VLAN</span> <span class="number">10</span>：剥离<span class="title class_">Tag</span>（管理可识别）</span><br><span class="line">port hybrid tagged vlan <span class="number">20</span>  # <span class="variable constant_">VLAN</span> <span class="number">20</span>：保留<span class="title class_">Tag</span>（业务需识别）</span><br></pre></td></tr></table></figure>
-
-<h3 id="适用场景-2"><a href="#适用场景-2" class="headerlink" title="适用场景"></a><strong><font style="color:rgb(0, 0, 0);">适用场景</font></strong></h3><p><font style="color:rgb(51, 51, 51);">适合“同一端口承载多类业务”的复杂场景，弥补Access和Trunk的灵活性不足：</font></p>
-<ul>
-<li><font style="color:rgb(51, 51, 51);">家庭&#x2F;酒店网口：同一接口同时接IPTV和路由器（宽带）；</font></li>
-<li><font style="color:rgb(51, 51, 51);">双业务服务器：服务器同时接入“业务VLAN”和“管理VLAN”，均需剥离Tag；</font></li>
-<li><font style="color:rgb(51, 51, 51);">工业场景：同一接口连接终端设备和下级交换机，需透传多VLAN且区分Tag处理。</font></li>
-</ul>
-<h3 id="避坑提醒-2"><a href="#避坑提醒-2" class="headerlink" title="避坑提醒"></a><strong><font style="color:rgb(0, 0, 0);">避坑提醒</font></strong></h3><p><font style="color:rgb(51, 51, 51);">Hybrid配置较复杂，重点区分「tagged」和「untagged」的用途，避免混淆导致业务不通；跨厂商互联时，需将Hybrid端口配置为Tagged模式，对应其他厂商的Trunk模式。</font></p>
-<h2 id="接口转发数据帧对比"><a href="#接口转发数据帧对比" class="headerlink" title="接口转发数据帧对比"></a><strong><font style="color:rgb(51, 51, 51);">接口转发数据帧对比</font></strong></h2><!-- 这是一张图片，ocr 内容为： -->
-<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com//hexo-img/1780986832127-d68720c3-539c-4ec5-a30a-44069cf2c0a6.png"></p>
-<h2 id="关键对比：一张表分清三种端口（收藏备用）"><a href="#关键对比：一张表分清三种端口（收藏备用）" class="headerlink" title="关键对比：一张表分清三种端口（收藏备用）"></a><strong><font style="color:rgb(0, 0, 0);">关键对比：一张表分清三种端口（收藏备用）</font></strong></h2><table>
-<thead>
-<tr>
-<th align="left"><font style="color:rgb(103, 116, 137);">对比维度</font></th>
-<th align="left"><font style="color:rgb(103, 116, 137);">Access端口</font></th>
-<th align="left"><font style="color:rgb(103, 116, 137);">Trunk端口</font></th>
-<th align="left"><font style="color:rgb(103, 116, 137);">Hybrid端口</font></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><font style="color:rgb(51, 51, 51);">核心用途</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">终端单VLAN接入</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">设备间多VLAN透传</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">混合连接终端&#x2F;设备，自定义转发</font></td>
-</tr>
-<tr>
-<td align="left"><font style="color:rgb(51, 51, 51);">允许VLAN数量</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">仅1个（固定绑定）</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">多个（需手动指定）</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">多个（分Tag&#x2F;Untag列表）</font></td>
-</tr>
-<tr>
-<td align="left"><font style="color:rgb(51, 51, 51);">标签处理</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">发送时统一剥离Tag</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">仅剥离Native VLAN的Tag，其他保留</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">自定义保留&#x2F;剥离Tag的VLAN</font></td>
-</tr>
-<tr>
-<td align="left"><font style="color:rgb(51, 51, 51);">典型连接对象</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">PC、打印机、摄像头</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">交换机、路由器、防火墙</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">IPTV+路由器、双业务服务器</font></td>
-</tr>
-<tr>
-<td align="left"><font style="color:rgb(51, 51, 51);">配置复杂度</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">最简单（2-3条命令）</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">中等</font></td>
-<td align="left"><font style="color:rgb(51, 51, 51);">较高（需自定义规则）</font></td>
-</tr>
-</tbody></table>
-<h2 id="补充：三种端口模式的等价配置关系（实操重点）"><a href="#补充：三种端口模式的等价配置关系（实操重点）" class="headerlink" title="补充：三种端口模式的等价配置关系（实操重点）"></a><strong><font style="color:rgb(0, 0, 0);">补充：三种端口模式的等价配置关系（实操重点）</font></strong></h2><p><font style="color:rgb(51, 51, 51);">在单VLAN终端接入场景中，Access、Trunk、Hybrid三种端口模式可通过不同配置实现完全相同的功能，三者等价关系如下（以绑定VLAN 10为例，华为设备）：</font></p>
-<ul>
-<li><strong><font style="color:rgb(51, 51, 51);">Access模式配置</font></strong><font style="color:rgb(51, 51, 51);">： </font><ul>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port link-type access &lt;/font&gt;</code></li>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port default vlan 10&lt;/font&gt;</code></li>
-</ul>
-</li>
-<li><strong><font style="color:rgb(51, 51, 51);">Trunk模式等价配置</font></strong><font style="color:rgb(51, 51, 51);">： </font><ul>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port link-type trunk &lt;/font&gt;</code></li>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port trunk allow-pass vlan 10 &lt;/font&gt;</code></li>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port trunk pvid vlan 10&lt;/font&gt;</code></li>
-</ul>
-</li>
-<li><strong><font style="color:rgb(51, 51, 51);">Hybrid模式等价配置</font></strong><font style="color:rgb(51, 51, 51);">：</font><ul>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port link-type hybrid &lt;/font&gt;</code></li>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port hybrid pvid vlan 10 &lt;/font&gt;</code></li>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;port hybrid untagged vlan 10&lt;/font&gt;</code></li>
-<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;undo port hybrid vlan 1&lt;/font&gt;</code></li>
-</ul>
-</li>
-</ul>
-<p><font style="color:rgb(51, 51, 51);">说明：以上配置均实现“端口仅允许VLAN 10流量通行，发送数据时剥离Tag标签，接收无Tag数据时打上VLAN 10标签”，适配终端接入场景。实操中可根据端口模式需求灵活选择，但Access模式配置最简单，优先推荐用于终端接入。</font></p>
-<h2 id="总结：怎么选？"><a href="#总结：怎么选？" class="headerlink" title="总结：怎么选？"></a><strong><font style="color:rgb(0, 0, 0);">总结：怎么选？</font></strong></h2><ol>
-<li><font style="color:rgb(51, 51, 51);">接终端（PC、打印机），仅需单VLAN → 选Access；</font></li>
-<li><font style="color:rgb(51, 51, 51);">接设备（交换机、路由器），需透传多VLAN → 选Trunk；</font></li>
-<li><font style="color:rgb(51, 51, 51);">同一端口多业务（如管理+业务），需灵活处理Tag → 选Hybrid。</font></li>
-</ol>
-<p><font style="color:rgb(51, 51, 51);">其实三种端口的核心逻辑很简单：Access求“专一”，Trunk求“高效”，Hybrid求“灵活”。掌握它们的标签处理规则和适用场景，配置时就不会再踩坑啦！</font></p>
-<p><font style="color:rgb(51, 51, 51);">最后提醒：配置完成后，可通过「display vlan all」命令查看VLAN和端口绑定情况，快速排查问题～</font></p>
-<h2 id="本系列文章"><a href="#本系列文章" class="headerlink" title="本系列文章"></a>本系列文章</h2><ul class="series-items"><li><a href="/post/fc7028a0.html" title="一、VLAN 基础知识">一、VLAN 基础知识</a></li><li><a href="/post/2356df63.html" title="二、VLAN端口-Access Trunk Hybrid">二、VLAN端口-Access Trunk Hybrid</a></li></ul>
-
-]]></content>
-      <tags>
-        <tag>VLAN</tag>
-        <tag>交换机</tag>
-        <tag>数通</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>第一篇测试博客</title>
-    <url>/post/c3213e8.html</url>
-    <content><![CDATA[<p>这是一篇测试博客，用于测试 Hexo 是否正常运行。</p>
-<p><img src="https://hexo-1319828364.cos.ap-shanghai.myqcloud.com/hexo-img/AW-CO7.jpg" alt="测试图片"></p>
-]]></content>
-      <tags>
-        <tag>测试</tag>
       </tags>
   </entry>
 </search>
